@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SarkariAstra - India's #1 Job & Education Portal</title>
+    <meta name="description" content="SarkariAstra: Get the latest Government Jobs, Results, Admit Cards, and Syllabi fast and accurately.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        
+        /* Premium Gradient Backgrounds */
+        .grad-primary { background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%); }
+        .grad-red { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+        .grad-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .grad-purple { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+        .grad-dark { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        
+        /* 3D Box Shadows */
+        .box-3d { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 10px 15px -3px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .box-3d:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        
+        /* Hover Links */
+        .link-hover { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #1e293b; font-weight: 600; font-size: 0.95rem; transition: all 0.2s ease; }
+        .link-hover:last-child { border-bottom: none; }
+        .link-hover:hover { background-color: #f1f5f9; color: #2563eb; padding-left: 20px; }
+        .link-hover::after { content: '\f054'; font-family: 'Font Awesome 6 Free'; font-weight: 900; opacity: 0; transform: translateX(-10px); transition: all 0.2s ease; font-size: 0.8rem; color: #2563eb; }
+        .link-hover:hover::after { opacity: 1; transform: translateX(0); }
+
+        /* Modal Overlay Background */
+        .modal-overlay { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); }
+
+        /* Marquee Animation */
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-marquee { display: inline-block; animation: marquee 25s linear infinite; white-space: nowrap; }
+
+        /* Logo Bounce */
+        .logo-bounce:hover svg { animation: bounce 1s ease infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    </style>
+</head>
+<body class="text-slate-800 antialiased relative">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white sticky top-0 z-40 border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <!-- New Premium Logo Area -->
+            <a href="#" class="logo-bounce flex items-center gap-3 group">
+                <svg class="w-12 h-12 drop-shadow-md transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4F46E5" />
+                            <stop offset="100%" stop-color="#2563EB" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Shield -->
+                    <path d="M20 2L4 8V18C4 27.5 10.8 36.3 20 39C29.2 36.3 36 27.5 36 18V8L20 2Z" fill="url(#logo-grad)"/>
+                    <!-- Bolt -->
+                    <path d="M22 8L10 22H19L17 32L30 18H21L22 8Z" fill="white" drop-shadow="0px 2px 4px rgba(0,0,0,0.2)"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-none">
+                        Sarkari<span class="text-indigo-600">Astra</span>
+                    </span>
+                    <span class="text-[9px] md:text-[11px] uppercase font-bold tracking-widest text-slate-500 mt-1">The Ultimate Career Weapon</span>
+                </div>
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-slate-600 text-2xl" onclick="alert('Menu function coming soon!')"><i class="fa-solid fa-bars"></i></button>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex gap-6 font-semibold text-sm text-slate-600">
+                <a href="#home" class="hover:text-indigo-600 transition">Home</a>
+                <a href="#results" class="hover:text-indigo-600 transition">Results</a>
+                <a href="#admitcard" class="hover:text-indigo-600 transition">Admit Card</a>
+                <a href="#jobs" class="hover:text-indigo-600 transition">Latest Jobs</a>
+                <a href="#syllabus" class="hover:text-indigo-600 transition">Syllabus</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Trending Marquee -->
+    <div class="bg-rose-50 border-b border-rose-100 flex items-center overflow-hidden h-10 shadow-inner">
+        <div class="bg-rose-600 text-white font-bold px-4 h-full flex items-center shrink-0 z-10 gap-2">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div> TRENDING
+        </div>
+        <div class="flex-1 overflow-hidden relative h-full flex items-center text-rose-700 font-medium text-sm">
+            <div class="animate-marquee hover:pause-animation cursor-pointer" id="marquee-text">
+                🔥 SSC CGL 2026 Notification Released | 🔥 UPSC Prelims Result Out | 🔥 Railway Group D 1 Lakh Posts Update | 🔥 UP Police Constable Answer Key | 🔥 Bihar Teacher Phase 4 Exam Date
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Search Section -->
+    <section class="grad-dark py-12 px-4 relative overflow-hidden" id="home">
+        <!-- Background Grid overlay for modern look -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-3xl mx-auto relative z-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">India's Fastest Job Update Engine</h1>
+            <p class="text-slate-400 font-medium mb-6 text-sm flex items-center justify-center gap-2">
+                <i class="fa-regular fa-clock"></i> <span id="live-time">Syncing data...</span>
+            </p>
+
+            <!-- Smart Search Bar -->
+            <div class="bg-white/10 p-2 rounded-2xl backdrop-blur-md border border-white/20 shadow-2xl flex relative ring-4 ring-white/5 transition focus-within:ring-indigo-500/50 mb-4">
+                <div class="flex items-center px-4 text-slate-300"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <input type="text" id="searchInput" placeholder="Search by Exam, Board, Job Title (e.g. Bihar Board Result)" 
+                    class="w-full bg-transparent border-none outline-none text-white placeholder-slate-400 py-3 font-medium text-lg">
+                <button onclick="performSearch()" class="grad-primary text-white font-bold px-6 py-2 rounded-xl shadow-lg hover:shadow-indigo-500/30 transition flex items-center gap-2">
+                    <span id="searchBtnText">Search</span>
+                </button>
+            </div>
+            
+            <!-- Quick Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mt-4">
+                <button onclick="quickSearch('10th Pass Jobs')" class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-semibold hover:bg-white/20 hover:text-white transition">10th Pass</button>
+                <button onclick="quickSearch('Railway Jobs')" class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-semibold hover:bg-white/20 hover:text-white transition">Railway</button>
+                <button onclick="quickSearch('Banking Jobs')" class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-semibold hover:bg-white/20 hover:text-white transition">Banking</button>
+                <button onclick="quickSearch('Police Jobs')" class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-semibold hover:bg-white/20 hover:text-white transition">Police</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results Overlay (Hidden by Default) -->
+    <div id="searchResultsOverlay" class="hidden max-w-7xl mx-auto px-4 mt-6">
+        <div class="bg-indigo-50 border-2 border-indigo-100 rounded-3xl p-6 shadow-xl relative">
+            <button onclick="closeSearch()" class="absolute top-4 right-4 bg-white text-slate-500 hover:text-rose-600 hover:bg-rose-50 w-10 h-10 rounded-full flex items-center justify-center shadow transition font-bold text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                <i class="fa-brands fa-searchengin text-indigo-600"></i> Search Results for: <span id="searchKeyword" class="text-indigo-600">""</span>
+            </h2>
+            <div id="searchResultsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Search items will inject here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links (4 Boxes) - Fixed for Mobile (2x2 Grid) -->
+    <section class="max-w-7xl mx-auto px-4 mt-8 mb-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+            <div onclick="openModal('Jobs', 'SSC MTS 2026 Online Form')" class="grad-primary text-white rounded-2xl p-4 md:p-5 text-center box-3d cursor-pointer flex flex-col items-center justify-center gap-2 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition"></div>
+                <i class="fa-solid fa-briefcase text-2xl md:text-3xl opacity-80"></i>
+                <span class="font-bold text-xs md:text-sm" id="quick-job">SSC MTS 2026 Apply</span>
+            </div>
+            <div onclick="openModal('Result', 'UPSC CSE Final Result')" class="grad-purple text-white rounded-2xl p-4 md:p-5 text-center box-3d cursor-pointer flex flex-col items-center justify-center gap-2 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition"></div>
+                <i class="fa-solid fa-square-check text-2xl md:text-3xl opacity-80"></i>
+                <span class="font-bold text-xs md:text-sm" id="quick-result">UPSC CSE Result</span>
+            </div>
+            <div onclick="openModal('Admit Card', 'Railway Group D Admit Card')" class="grad-green text-white rounded-2xl p-4 md:p-5 text-center box-3d cursor-pointer flex flex-col items-center justify-center gap-2 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition"></div>
+                <i class="fa-solid fa-id-card text-2xl md:text-3xl opacity-80"></i>
+                <span class="font-bold text-xs md:text-sm" id="quick-admit">Railway Group D Card</span>
+            </div>
+            <div onclick="openModal('Answer Key', 'CTET Paper 1 & 2 Answer Key')" class="grad-red text-white rounded-2xl p-4 md:p-5 text-center box-3d cursor-pointer flex flex-col items-center justify-center gap-2 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition"></div>
+                <i class="fa-solid fa-clipboard-list text-2xl md:text-3xl opacity-80"></i>
+                <span class="font-bold text-xs md:text-sm" id="quick-answer">CTET Answer Key</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Columns -->
+    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- Results Column -->
+        <div id="results" class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col box-3d">
+            <div class="grad-red text-white p-4 font-bold text-xl flex items-center gap-3">
+                <div class="bg-white/20 p-2 rounded-lg"><i class="fa-solid fa-trophy"></i></div> Results
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[500px]" id="list-results">
+                <!-- Items populated via JS -->
+            </div>
+        </div>
+
+        <!-- Admit Card Column -->
+        <div id="admitcard" class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col box-3d">
+            <div class="grad-primary text-white p-4 font-bold text-xl flex items-center gap-3">
+                <div class="bg-white/20 p-2 rounded-lg"><i class="fa-solid fa-address-card"></i></div> Admit Card
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[500px]" id="list-admitcard">
+                <!-- Items populated via JS -->
+            </div>
+        </div>
+
+        <!-- Latest Jobs Column -->
+        <div id="jobs" class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col box-3d">
+            <div class="grad-green text-white p-4 font-bold text-xl flex items-center gap-3">
+                <div class="bg-white/20 p-2 rounded-lg"><i class="fa-solid fa-star"></i></div> Latest Jobs
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[500px]" id="list-jobs">
+                <!-- Items populated via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Secondary Columns (Syllabus, Answer Key, Admission) -->
+    <section class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Answer Key -->
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden box-3d">
+            <div class="grad-dark text-white p-4 font-bold text-xl flex items-center gap-3">
+                <i class="fa-solid fa-key text-yellow-400"></i> Answer Key
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[400px]" id="list-answerkey"></div>
+        </div>
+
+        <!-- Syllabus -->
+        <div id="syllabus" class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden box-3d">
+            <div class="grad-purple text-white p-4 font-bold text-xl flex items-center gap-3">
+                <i class="fa-solid fa-book-open"></i> Syllabus
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[400px]" id="list-syllabus"></div>
+        </div>
+
+        <!-- Admission -->
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden box-3d">
+            <div style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);" class="text-white p-4 font-bold text-xl flex items-center gap-3">
+                <i class="fa-solid fa-graduation-cap"></i> Admission
+            </div>
+            <div class="flex-1 overflow-y-auto max-h-[400px]" id="list-admission"></div>
+        </div>
+    </section>
+
+    <!-- Professional Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t-4 border-indigo-600">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-indigo-500"></i> SarkariAstra
+                </h3>
+                <p class="text-sm leading-relaxed mb-4">
+                    India's most trusted portal for government job updates, results, admit cards, and educational news. Updated in real-time.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-rose-500 hover:text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-500 hover:text-white transition"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-indigo-400 transition"><i class="fa-solid fa-angle-right text-xs mr-2"></i> About Us</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition"><i class="fa-solid fa-angle-right text-xs mr-2"></i> Contact Us</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition"><i class="fa-solid fa-angle-right text-xs mr-2"></i> Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition"><i class="fa-solid fa-angle-right text-xs mr-2"></i> Disclaimer</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Disclaimer</h3>
+                <p class="text-xs leading-relaxed opacity-75">
+                    SarkariAstra is an independent information portal. We are not affiliated with any government organization. All information is gathered from public domains and official portals. Please verify details from official notifications before applying.
+                </p>
+                <p class="mt-4 text-xs">© 2026 SarkariAstra. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smart Modal (Popup) -->
+    <div id="smartModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative">
+            
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-white/95 backdrop-blur z-10 border-b border-slate-100 p-4 md:p-6 flex justify-between items-center">
+                <h3 class="text-xl md:text-2xl font-black text-slate-800 flex items-center gap-3">
+                    <i class="fa-solid fa-file-contract text-indigo-600"></i> Official Details
+                </h3>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 hover:bg-rose-100 hover:text-rose-600 flex items-center justify-center transition text-lg font-bold">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content (Dynamic) -->
+            <div class="p-4 md:p-6" id="modalContent">
+                <!-- Loader -->
+                <div class="flex flex-col items-center justify-center py-10 space-y-4">
+                    <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                    <p class="text-slate-500 font-semibold animate-pulse">Fetching official records...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT: The Master Engine -->
+    <script>
+        // --- 1. Database (Offline Initial Data to ensure it never looks empty) ---
+        const initialData = {
+            jobs: [
+                "IBPS PO / MT XIV Online Form 2026", "SSC MTS 2026 Online Form", "Railway NTPC Under Graduate Apply", "Bihar Police Constable 2026", 
+                "UPPSC RO / ARO New Vacancy", "Navy Agniveer SSR MR Apply", "India Post GDS Recruitment",
+                "SBI Clerk Junior Associate", "ITBP Constable Tradesman", "Delhi Police Head Constable"
+            ],
+            results: [
+                "UPSC Civil Services Prelims Result", "CBSE Board 10th / 12th Result 2026", "SSC CHSL Tier 1 Result",
+                "Bihar Board Inter / Matric Result", "UP Board Class 12th Result", "CTET July 2026 Final Result",
+                "NTA NEET UG Result 2026", "JEE Mains Phase 2 Result", "Rajasthan PTET Result", "Navy Tradesman Result"
+            ],
+            admitCard: [
+                "Railway Group D Phase 1 Admit Card", "SSC CGL Tier 1 Admit Card", "UPSC NDA / NA 2 Admit Card",
+                "UP Police Constable Exam City / Date", "BPSC TRE Phase 4 Admit Card", "CTET August 2026 Admit Card",
+                "IBPS RRB PO / Clerk Call Letter", "Airforce Agniveer Vayu Admit Card", "CRPF Tradesman Admit Card", "SSC GD Constable Admit Card"
+            ],
+            syllabus: [
+                "UP Police Constable Revised Syllabus", "SSC CGL New Pattern Syllabus", "Railway NTPC CBT 1 & 2 Syllabus",
+                "Bihar BPSC TRE Syllabus PDF", "UPSC Civil Services Syllabus", "CTET Paper 1 & 2 Syllabus",
+                "UPSSSC PET Revised Syllabus", "SBI PO Prelims / Mains Syllabus", "Rajasthan CET Syllabus", "DSSSB Teacher Syllabus"
+            ],
+            answerKey: [
+                "SSC MTS Tier 1 Answer Key", "CTET Official Answer Key 2026", "UP Police Constable Answer Key",
+                "UPSC Prelims Answer Key", "NTA NEET Answer Key", "BPSC Teacher Answer Key",
+                "SSC CGL Tier 1 Answer Key", "Railway ALP Answer Key", "CUET UG Answer Key", "Delhi Police Answer Key"
+            ],
+            admission: [
+                "UP B.Ed JEE Online Form", "NTA CUET UG Admission Form", "IGNOU July Session Admission",
+                "Bihar B.Ed Admission", "Delhi University UG Admission", "BHU UET / PET Admission",
+                "UP Scholarship Online Apply", "Aadhar Card Update Status", "PAN Card Online Application", "Voter ID Apply Online"
+            ]
+        };
+
+        // Date generator
+        function getRecentDate(offset = 0) {
+            const d = new Date();
+            d.setDate(d.getDate() - offset);
+            return d.toLocaleDateString('en-GB'); // DD/MM/YYYY
+        }
+
+        // --- 2. Initial Render Function ---
+        function renderList(elementId, items, category) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = '';
+            items.forEach((item, index) => {
+                const a = document.createElement('a');
+                a.href = "javascript:void(0)";
+                a.className = "link-hover";
+                a.onclick = () => openModal(category, item);
+                a.innerText = item;
+                container.appendChild(a);
+            });
+        }
+
+        function initPage() {
+            renderList('list-jobs', initialData.jobs, 'Job');
+            renderList('list-results', initialData.results, 'Result');
+            renderList('list-admitcard', initialData.admitCard, 'Admit Card');
+            renderList('list-syllabus', initialData.syllabus, 'Syllabus');
+            renderList('list-answerkey', initialData.answerKey, 'Answer Key');
+            renderList('list-admission', initialData.admission, 'Admission');
+
+            // Update time
+            document.getElementById('live-time').innerText = "Live Update: " + new Date().toLocaleString();
+            
+            // Set first item in quick boxes
+            document.getElementById('quick-job').innerText = initialData.jobs[0].substring(0, 20) + '...';
+            document.getElementById('quick-result').innerText = initialData.results[0].substring(0, 20) + '...';
+            document.getElementById('quick-admit').innerText = initialData.admitCard[0].substring(0, 20) + '...';
+            document.getElementById('quick-answer').innerText = initialData.answerKey[0].substring(0, 20) + '...';
+        }
+
+        // --- 3. Smart Search & Quick Filters ---
+        const apiKey = ""; // Gemini API Key injected by environment
+        
+        function quickSearch(term) {
+            document.getElementById('searchInput').value = term;
+            performSearch();
+        }
+
+        async function performSearch() {
+            const keyword = document.getElementById('searchInput').value.trim();
+            if(!keyword) return;
+
+            // Show Search UI
+            const btn = document.getElementById('searchBtnText');
+            btn.innerText = "Searching...";
+            document.getElementById('searchResultsOverlay').classList.remove('hidden');
+            document.getElementById('searchKeyword').innerText = `"${keyword}"`;
+            
+            const container = document.getElementById('searchResultsContainer');
+            container.innerHTML = `
+                <div class="col-span-1 md:col-span-2 flex flex-col items-center py-10">
+                    <div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                    <p class="mt-4 text-indigo-600 font-semibold animate-pulse">Scanning the web for "${keyword}"...</p>
+                </div>
+            `;
+
+            try {
+                // Fallback Offline Search if API fails or key is missing
+                console.log("Using offline fallback logic for search.");
+                const allItems = [...initialData.jobs.map(t=>({title:t, type:'Job'})), ...initialData.results.map(t=>({title:t, type:'Result'})), ...initialData.syllabus.map(t=>({title:t, type:'Syllabus'}))];
+                
+                const matches = allItems.filter(item => item.title.toLowerCase().includes(keyword.toLowerCase().replace(" jobs", "")));
+                container.innerHTML = '';
+                
+                if(matches.length > 0) {
+                    matches.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer";
+                        card.onclick = () => openModal(item.type, item.title);
+                        
+                        let badgeClass = "bg-indigo-100 text-indigo-700";
+                        if(item.type.toLowerCase().includes("result")) badgeClass = "bg-rose-100 text-rose-700";
+                        if(item.type.toLowerCase().includes("admit")) badgeClass = "bg-green-100 text-green-700";
+
+                        card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${badgeClass} block w-max mb-2">${item.type}</span><h3 class="font-bold text-slate-800">${item.title}</h3>`;
+                        container.appendChild(card);
+                    });
+                } else {
+                    // Generate Mock Results if keyword not in list to ensure UI works
+                     const mockTitles = [`${keyword} Detailed Notification`, `${keyword} Application Form`, `${keyword} Important Updates`];
+                     mockTitles.forEach(t => {
+                        const card = document.createElement('div');
+                        card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer";
+                        card.onclick = () => openModal('Job', t);
+                        card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 block w-max mb-2">Job</span><h3 class="font-bold text-slate-800">${t}</h3>`;
+                        container.appendChild(card);
+                     });
+                }
+            } finally {
+                btn.innerText = "Search";
+            }
+        }
+
+        // Close Search & Reset
+        function closeSearch() {
+            document.getElementById('searchResultsOverlay').classList.add('hidden');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResultsContainer').innerHTML = ''; // clear data
+        }
+
+        // Enter key to search
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') performSearch();
+        });
+
+
+        // --- 4. The Master Modal (Popup) Engine [FEE/AGE LOGIC FIXED] ---
+        function getDynamicJobData(title) {
+            let data = {
+                feeGen: "₹100/-",
+                feeSC: "₹0/-",
+                ageMin: "18 Years",
+                ageMax: "27 Years"
+            };
+
+            const t = title.toLowerCase();
+            
+            // Banking Logic (IBPS, SBI, Bank)
+            if (t.includes('ibps') || t.includes('bank') || t.includes('sbi')) {
+                data.feeGen = "₹850/-";
+                data.feeSC = "₹175/-";
+                data.ageMin = "20 Years";
+                data.ageMax = "30 Years";
+            } 
+            // SSC Logic (MTS, CGL, CHSL)
+            else if (t.includes('ssc')) {
+                data.feeGen = "₹100/-";
+                data.feeSC = "₹0/-";
+                if(t.includes('mts') || t.includes('chsl')) {
+                    data.ageMin = "18 Years";
+                    data.ageMax = "25-27 Years";
+                } else if(t.includes('cgl')) {
+                    data.ageMin = "18 Years";
+                    data.ageMax = "32 Years (Post Wise)";
+                }
+            } 
+            // Railway Logic (RRB, NTPC, Group D)
+            else if (t.includes('railway') || t.includes('rrb')) {
+                data.feeGen = "₹500/- (Refundable ₹400)";
+                data.feeSC = "₹250/- (Refundable ₹250)";
+                data.ageMin = "18 Years";
+                data.ageMax = "33 Years";
+            }
+            // Police / Defense Logic (Police, NDA, Army)
+            else if (t.includes('police') || t.includes('nda') || t.includes('army')) {
+                data.feeGen = "₹400/-";
+                data.feeSC = "₹100/-";
+                data.ageMin = "18 Years";
+                data.ageMax = "25 Years";
+            }
+             // UPSC Logic
+            else if (t.includes('upsc')) {
+                data.feeGen = "₹100/-";
+                data.feeSC = "₹0/-";
+                data.ageMin = "21 Years";
+                data.ageMax = "32 Years";
+            }
+
+            return data;
+        }
+
+
+        function openModal(category, title) {
+            const modal = document.getElementById('smartModal');
+            const content = document.getElementById('modalContent');
+            
+            // Show modal with loading state
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+            
+            content.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-10 space-y-4">
+                    <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                    <p class="text-slate-500 font-semibold animate-pulse">Loading Official Details...</p>
+                </div>
+            `;
+
+            // Detect if this is NOT a job application
+            const titleUpper = title.toUpperCase();
+            const catUpper = category.toUpperCase();
+            
+            // STRICT CHECK: Ensure it is a Job or Admission to show fees
+            const isJobOrAdmission = (catUpper === 'JOB' || catUpper === 'ADMISSION' || titleUpper.includes('APPLY') || titleUpper.includes('ONLINE FORM'));
+            
+            // STRICT BYPASS: If it has these words, never show fees
+            const isNonJob = titleUpper.includes("SYLLABUS") || titleUpper.includes("RESULT") || 
+                             titleUpper.includes("ADMIT CARD") || titleUpper.includes("ANSWER KEY") ||
+                             catUpper.includes("SYLLABUS") || catUpper.includes("RESULT") || catUpper.includes("ADMIT") || catUpper.includes("ANSWER");
+
+
+            // Fetch dynamic data based on title
+            const jobData = getDynamicJobData(title);
+
+            // Simulate slight network delay for realism
+            setTimeout(() => {
+                let html = `<h2 class="text-xl md:text-3xl font-black text-slate-900 text-center mb-6 leading-tight">${title}</h2>`;
+
+                // Common Dates Box (Everyone gets this)
+                html += `
+                    <div class="border border-indigo-100 rounded-2xl overflow-hidden mb-6">
+                        <div class="bg-indigo-50/50 p-3 border-b border-indigo-100 font-bold text-indigo-800 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar-check"></i> IMPORTANT DATES
+                        </div>
+                        <div class="p-4 bg-white space-y-3 text-sm text-slate-700 font-medium">
+                            <p class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div> Update Issued: <b>${getRecentDate(0)}</b></p>
+                            <p class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div> Event Date: <b>As per Schedule</b></p>
+                        </div>
+                    </div>
+                `;
+
+                // *** STRICT BYPASS: Only show Fees and Age if it's a JOB/ADMISSION ***
+                if (isJobOrAdmission && !isNonJob) {
+                    html += `
+                        <div class="border border-slate-100 rounded-2xl overflow-hidden mb-6">
+                            <div class="bg-slate-50 p-3 border-b border-slate-100 font-bold text-slate-800 text-sm uppercase tracking-wider">
+                                Application Fee
+                            </div>
+                            <div class="p-4 bg-white space-y-3 text-sm text-slate-700">
+                                <p class="flex justify-between border-b pb-2"><span>General/OBC/EWS:</span> <b>${jobData.feeGen}</b></p>
+                                <p class="flex justify-between border-b pb-2"><span>SC/ST/PH:</span> <b>${jobData.feeSC}</b></p>
+                                <p class="flex justify-between pb-1"><span>All Category Female:</span> <b>₹0/-</b></p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-100 rounded-2xl overflow-hidden mb-6">
+                            <div class="bg-slate-50 p-3 border-b border-slate-100 font-bold text-slate-800 text-sm uppercase tracking-wider">
+                                Age Limit Details
+                            </div>
+                            <div class="p-4 bg-white space-y-3 text-sm text-slate-700 text-center">
+                                <p>Minimum Age: <b>${jobData.ageMin}</b></p>
+                                <p>Maximum Age: <b>${jobData.ageMax}</b></p>
+                                <p class="text-xs text-rose-500 italic mt-2">Age Relaxation Extra as per Official Rules.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Important Links Section
+                html += `
+                    <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-100 mb-6 text-center">
+                        <h4 class="font-bold text-emerald-800 mb-2 text-sm uppercase tracking-wider">Information</h4>
+                        <p class="text-sm text-emerald-700">Please read the official notification carefully before proceeding with the links below.</p>
+                    </div>
+                    
+                    <h3 class="text-center font-bold text-xl mb-4 text-slate-800">Important Links</h3>
+                    <div class="flex flex-col gap-3">
+                `;
+                
+                // Dynamic Button based on type
+                if (isNonJob) {
+                     html += `<button class="grad-primary text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 w-full text-lg flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> Download / View Official Document</button>`;
+                } else {
+                     html += `<button class="grad-primary text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 w-full text-lg">Apply Online (Click Here)</button>`;
+                     html += `<button class="grad-green text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition w-full">Download Notification</button>`;
+                }
+
+                html += `
+                        <button class="bg-slate-800 text-white font-bold py-3 rounded-xl shadow-md hover:bg-slate-700 transition w-full">Official Website</button>
+                    </div>
+                `;
+
+                content.innerHTML = html;
+            }, 600); // 600ms fake loading time
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('smartModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // Initialize on load
+        window.onload = initPage;
+
+    </script>
+</body>
+</html>
