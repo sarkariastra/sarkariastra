@@ -6,7 +6,7 @@
     <title>SarkariAstra - India's #1 Job & Education Portal</title>
     <meta name="description" content="SarkariAstra: Get the latest Government Jobs, Results, Admit Cards, and Syllabi fast and accurately.">
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -202,67 +202,34 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
 
 
 
+
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // सभी कैटेगरीज के लिए फुल और रिच डेटा (30+ active links per section)
-    const allUpdates = [
-        // Results
+    const updates = [
         { category: "result", title: "UPSC Civil Services Prelims Result 2026", query: "UPSC Prelims Result", url: "https://upsc.gov.in" },
         { category: "result", title: "CBSE Board 10th / 12th Result 2026", query: "CBSE Result", url: "https://cbse.gov.in" },
         { category: "result", title: "SSC CHSL Tier 1 Result 2026", query: "SSC CHSL Result", url: "https://ssc.gov.in" },
         { category: "result", title: "Bihar Board Inter / Matric Result 2026", query: "Bihar Board Result", url: "https://biharboardonline.bihar.gov.in" },
         { category: "result", title: "UP Board Class 10th & 12th Result 2026", query: "UP Board Result", url: "https://upmsp.edu.in" },
-        { category: "result", title: "CTET July Final Result 2026", query: "CTET Result", url: "https://ctet.nic.in" },
-        { category: "result", title: "NTA NEET UG Result 2026", query: "NEET UG Result", url: "https://exams.nta.ac.in/NEET" },
-        { category: "result", title: "JEE Mains Phase 2 Result 2026", query: "JEE Mains Result", url: "https://jeemain.nta.nic.in" },
-        { category: "result", title: "Rajasthan PTET Result 2026", query: "PTET Result", url: "https://ptetvmou2026.com" },
-        { category: "result", title: "Indian Navy Tradesman Mate Result 2026", query: "Navy Tradesman Result", url: "https://joinindiannavy.gov.in" },
-        { category: "result", title: "IBPS PO Prelims Result 2026", query: "IBPS PO Result", url: "https://ibps.in" },
-        { category: "result", title: "RRB NTPC CBT 1 Result 2026", query: "RRB NTPC Result", url: "https://rrcb.gov.in" },
-
-        // Admit Card
+        
         { category: "admit", title: "Railway Group D Admit Card 2026", query: "Railway Group D Admit Card", url: "https://rrcb.gov.in" },
         { category: "admit", title: "CTET July Admit Card 2026", query: "CTET Admit Card", url: "https://ctet.nic.in" },
         { category: "admit", title: "UPSC CSE Prelims Admit Card 2026", query: "UPSC Admit Card", url: "https://upsc.gov.in" },
         { category: "admit", title: "SSC CGL Tier 1 Admit Card 2026", query: "SSC CGL Admit Card", url: "https://ssc.gov.in" },
-        { category: "admit", title: "IBPS Clerk Prelims Call Letter 2026", query: "IBPS Clerk Admit Card", url: "https://ibps.in" },
-        { category: "admit", title: "NEET UG Hall Ticket 2026", query: "NEET Admit Card", url: "https://neet.nta.nic.in" },
-        { category: "admit", title: "JEE Advanced Admit Card 2026", query: "JEE Advanced Admit Card", url: "https://jeeadv.ac.in" },
-        { category: "admit", title: "UP Police Constable Admit Card 2026", query: "UP Police Admit Card", url: "https://uppbpb.gov.in" },
-        { category: "admit", title: "SBI Clerk Mains Admit Card 2026", query: "SBI Clerk Admit Card", url: "https://sbi.co.in" },
-        { category: "admit", title: "LIC AAO Call Letter 2026", query: "LIC AAO Admit Card", url: "https://licindia.in" },
-
-        // Latest Jobs
+        
         { category: "job", title: "SSC CGL 2026 Online Form", query: "SSC CGL 2026 Online Form", url: "https://ssc.gov.in" },
         { category: "job", title: "UPSC Civil Services Examination 2026", query: "UPSC Civil Services Exam", url: "https://upsc.gov.in" },
         { category: "job", title: "Railway Group D 1 Lakh+ Posts Recruitment 2026", query: "Railway Group D", url: "https://rrcb.gov.in" },
         { category: "job", title: "IBPS PO / Management Trainee 2026", query: "IBPS PO Notification", url: "https://ibps.in" },
-        { category: "job", title: "SBI Clerk Recruitment 2026 Apply Online", query: "SBI Clerk Recruitment", url: "https://sbi.co.in" },
-        { category: "job", title: "Indian Army Agniveer 2026 Batch Notification", query: "Army Agniveer Recruitment", url: "https://joinindiannavy.gov.in" },
-        { category: "job", title: "Delhi Police Constable Vacancy 2026", query: "Delhi Police Vacancy", url: "https://ssc.gov.in" },
-        { category: "job", title: "LIC AAO & Assistant Recruitment 2026", query: "LIC Recruitment", url: "https://licindia.in" },
-        { category: "job", title: "RRB ALP & Technician Online Form 2026", query: "RRB ALP Recruitment", url: "https://rrcb.gov.in" },
-        { category: "job", title: "SSC CHSL 10+2 Exam 2026 Notification", query: "SSC CHSL Notification", url: "https://ssc.gov.in" },
-        { category: "job", title: "State Bank of India PO 2026 Form", query: "SBI PO Recruitment", url: "https://sbi.co.in" },
-        { category: "job", title: "UPSC NDA & NA (I) Exam 2026", query: "UPSC NDA Notification", url: "https://upsc.gov.in" },
-
-        // Answer Key
+        
         { category: "answerkey", title: "UPSC CSE Prelims Answer Key 2026", query: "UPSC Answer Key", url: "https://upsc.gov.in" },
         { category: "answerkey", title: "SSC CGL Tier 1 Answer Key 2026", query: "SSC CGL Answer Key", url: "https://ssc.gov.in" },
         { category: "answerkey", title: "CTET Paper 1 & 2 Official Answer Key 2026", query: "CTET Answer Key", url: "https://ctet.nic.in" },
-        { category: "answerkey", title: "NEET UG Official Answer Key By NTA 2026", query: "NEET Answer Key", url: "https://neet.nta.nic.in" },
-        { category: "answerkey", title: "JEE Mains Answer Key (Session 1 & 2) 2026", query: "JEE Mains Answer Key", url: "https://jeemain.nta.nic.in" },
-        { category: "answerkey", title: "IBPS PO Prelims Answer Key / Response Sheet", query: "IBPS PO Answer Key", url: "https://ibps.in" },
-        { category: "answerkey", title: "UP Police Constable Answer Key 2026", query: "UP Police Answer Key", url: "https://uppbpb.gov.in" },
-        { category: "answerkey", title: "SSC CHSL Answer Key 2026", query: "SSC CHSL Answer Key", url: "https://ssc.gov.in" },
-
-        // Admission
+        
         { category: "admission", title: "NEET UG Medical Counselling 2026 Registration", query: "NEET UG Counselling", url: "https://mcc.nic.in" },
         { category: "admission", title: "JEE Advanced Online Admission 2026", query: "JEE Advanced Admission", url: "https://jeeadv.ac.in" },
-        { category: "admission", title: "DU (Delhi University) UG/PG Admission 2026", query: "Delhi University Admission", url: "https://du.ac.in" },
-        { category: "admission", title: "BHU UG / PG Entrance Admission 2026", query: "BHU Admission", url: "https://bhuonline.in" },
-        { category: "admission", title: "IGNOU Admissions 2026 (July Session)", query: "IGNOU Admission", url: "https://ignou.ac.in" },
-        { category: "admission", title: "JNU Entrance Exam Admission 2026", query: "JNU Admission", url: "https://jnu.ac.in" }
+        { category: "admission", title: "DU (Delhi University) UG/PG Admission 2026", query: "Delhi University Admission", url: "https://du.ac.in" }
     ];
 
     const mapping = {
@@ -274,64 +241,21 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     Object.keys(mapping).forEach(cat => {
-        let items = allUpdates.filter(item => item.category === cat);
-        let containerId = mapping[cat];
-        let container = document.getElementById(containerId);
-        
+        let items = updates.filter(item => item.category === cat);
+        let container = document.getElementById(mapping[cat]);
         if (container) {
-            renderCategoryList(container, items, containerId);
+            container.innerHTML = items.map(item => `
+                <li class="py-2.5 px-4 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
+                    <a href="${item.url}" target="_blank" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
+                        <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
+                        <span class="truncate">${item.title}</span>
+                    </a>
+                    <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
+                </li>
+            `).join('');
         }
     });
 });
-
-function renderCategoryList(container, items, containerId) {
-    let visibleCount = 10;
-
-    function draw() {
-        let currentItems = items.slice(0, visibleCount);
-        let htmlContent = currentItems.map(item => `
-            <li class="py-2.5 px-4 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
-                <a href="#" onclick="safeOpenModal('${item.query}', '${item.url}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
-                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
-                    <span class="truncate">href=`#`>${item.title}</span>
-                </a>
-                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
-            </li>
-        `).join('');
-
-        if (items.length > visibleCount) {
-            htmlContent += `
-                <div class="text-center py-4 bg-slate-50/50">
-                    <button onclick="window.loadMore${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 rounded-full transition shadow hover:shadow-md cursor-pointer">
-                        View More (${items.length - visibleCount} more)
-                    </button>
-                </div>
-            `;
-        }
-        container.innerHTML = htmlContent;
-    }
-
-    window['loadMore' + containerId] = function() {
-        visibleCount += 20;
-        draw();
-    };
-
-    draw();
-}
-
-function safeOpenModal(query, url) {
-    try {
-        if (typeof openSearchModal === 'function') {
-            openSearchModal(query);
-        } else if (url && url !== '#') {
-            window.open(url, '_blank');
-        } else {
-            alert(query);
-        }
-    } catch (err) {
-        if (url && url !== '#') window.open(url, '_blank');
-    }
-}
 </script>
 </body>
 </html>
