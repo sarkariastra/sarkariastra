@@ -1,0 +1,9 @@
+{
+  "bindings": [
+    {
+      "name": "CACHE",
+      "type": "kv_namespace",
+      "namespace_id": "f6ea3043a83540faaa0eabd80582f12f"
+    }
+  ]
+}
