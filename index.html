@@ -411,7 +411,8 @@
 
             // Fake brief network delay for realism
             setTimeout(() => {
-                let html = `<h2 class="text-lg md:text-2xl font-black text-slate-900 text-center mb-6 leading-tight">${title}</h2>`;
+                let html = '<div class="prose prose-slate prose-table:border-collapse prose-th:bg-slate-100 prose-th:p-3 prose-td:p-3 prose-td:border-b prose-td:border-slate-200 max-w-none text-left overflow-x-auto">' + marked.parse(title) + '</div>';
+                
 
                 html += `
                     <div class="border border-indigo-100 rounded-xl overflow-hidden mb-4">
