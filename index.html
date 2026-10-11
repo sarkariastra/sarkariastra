@@ -6,7 +6,7 @@
     <title>SarkariAstra - India's #1 Job & Education Portal</title>
     <meta name="description" content="SarkariAstra: Get the latest Government Jobs, Results, Admit Cards, and Syllabi fast and accurately.">
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -194,56 +194,8 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
     #modalContent a:active { transform: scale(0.95) !important; }
 }
 </style>
-<script>
-/* Unique Logic: Links active karega + Stacked Tables ke liye data-label banayega */
-setInterval(function() {
-    // 1. Links ko clickable aur redirectable banana
-    document.querySelectorAll('#modalContent a').forEach(function(link) {
-        if (!link.hasAttribute('target')) {
-            link.setAttribute('target', '_blank'); // Naye tab mein kholega
-            link.setAttribute('rel', 'noopener noreferrer');
-        }
-    });
 
-    // 2. Table Auto-Detector
-    var tables = document.querySelectorAll('#modalContent table:not(.styled)');
-    tables.forEach(function(table) {
-        table.classList.add('styled');
-        var trs = table.querySelectorAll('tr');
-        var maxCols = 0;
-        var headers = [];
-        
-        // Headers ko save karein
-        table.querySelectorAll('th').forEach(function(th) {
-            headers.push(th.innerText.trim());
-        });
 
-        trs.forEach(function(tr) {
-            var cols = tr.querySelectorAll('td, th').length;
-            if(cols > maxCols) maxCols = cols;
-        });
-
-        // Agar 2 column hain toh normal Card, 3+ hain to No-Scroll Stacked Card
-        if(maxCols <= 2) {
-            table.classList.add('table-2col');
-        } else {
-            table.classList.add('table-stacked');
-            // Har cell (td) ko uska naam (header) chupke se bata do
-            trs.forEach(function(tr) {
-                var tds = tr.querySelectorAll('td');
-                tds.forEach(function(td, index) {
-                    if(headers[index]) {
-                        td.setAttribute('data-label', headers[index]);
-                    } else {
-                        td.setAttribute('data-label', 'Details');
-                    }
-                });
-            });
-        }
-    });
-}, 500);
-</script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
 /* Make hero title bright white with shadow for clear readability */
@@ -467,224 +419,7 @@ footer a {
     </div>
 
 
-    <script>
-        // API KEY FOR HOSTING (Put your Gemini API Key here)
-        const WORKER_URL = "https://sarkariastra.shivamkumar911315.workers.dev"; 
-
-        // Static fallback lists
-        const initialData = {
-            jobs: ["SSC CGL 2026 Online Form", "IBPS PO / MT XIV Online Form", "Railway NTPC Under Graduate", "UPSC Civil Services 2026", "Bihar Police Constable", "Navy Agniveer SSR MR Apply", "India Post GDS Recruitment", "SBI Clerk Junior Associate", "ITBP Constable Tradesman", "Delhi Police Head Constable"],
-            results: ["UPSC Civil Services Prelims Result", "CBSE Board 10th / 12th Result 2026", "SSC CHSL Tier 1 Result", "Bihar Board Inter / Matric Result", "UP Board Class 12th Result", "CTET July 2026 Final Result", "NTA NEET UG Result 2026", "JEE Mains Phase 2 Result", "Rajasthan PTET Result", "Navy Tradesman Result"],
-            admitCard: ["Railway Group D Phase 1 Admit Card", "SSC CGL Tier 1 Admit Card", "UPSC NDA / NA 2 Admit Card", "UP Police Constable Exam City", "BPSC TRE Phase 4 Admit Card", "CTET August 2026 Admit Card", "IBPS RRB PO / Clerk Call Letter", "Airforce Agniveer Vayu Admit Card", "CRPF Tradesman Admit Card", "SSC GD Constable Admit Card"],
-            syllabus: ["UP Police Constable Revised Syllabus", "SSC CGL New Pattern Syllabus", "Railway NTPC CBT 1 & 2 Syllabus", "Bihar BPSC TRE Syllabus PDF", "UPSC Civil Services Syllabus", "CTET Paper 1 & 2 Syllabus", "UPSSSC PET Revised Syllabus", "SBI PO Prelims / Mains Syllabus", "Rajasthan CET Syllabus", "DSSSB Teacher Syllabus"],
-            answerKey: ["SSC MTS Tier 1 Answer Key", "CTET Official Answer Key 2026", "UP Police Constable Answer Key", "UPSC Prelims Answer Key", "NTA NEET Answer Key", "BPSC Teacher Answer Key", "SSC CGL Tier 1 Answer Key", "Railway ALP Answer Key", "CUET UG Answer Key", "Delhi Police Answer Key"],
-            admission: ["UP B.Ed JEE Online Form", "NTA CUET UG Admission Form", "IGNOU July Session Admission", "Bihar B.Ed Admission", "Delhi University UG Admission", "BHU UET / PET Admission", "UP Scholarship Online Apply", "Aadhar Card Update Status", "PAN Card Online Application", "Voter ID Apply Online"]
-        };
-
-        function getRecentDate(offset = 0) {
-            const d = new Date();
-            d.setDate(d.getDate() - offset);
-            return d.toLocaleDateString('en-GB'); 
-        }
-
-        function initPage() {
-            renderList('list-jobs', initialData.jobs, 'Job');
-            renderList('list-results', initialData.results, 'Result');
-            renderList('list-admitcard', initialData.admitCard, 'Admit Card');
-            renderList('list-syllabus', initialData.syllabus, 'Syllabus');
-            renderList('list-answerkey', initialData.answerKey, 'Answer Key');
-            renderList('list-admission', initialData.admission, 'Admission');
-            document.getElementById('live-time').innerText = "Live Update: " + new Date().toLocaleString();
-        }
-
-        function renderList(elementId, items, category) {
-            const container = document.getElementById(elementId);
-            container.innerHTML = '';
-            items.forEach((item) => {
-                const a = document.createElement('a');
-                a.href = "javascript:void(0)";
-                a.className = "link-hover";
-                a.onclick = () => openModal(category, item);
-                a.innerText = item;
-                container.appendChild(a);
-            });
-        }
-
-        function triggerQuickSearch(keyword) {
-            document.getElementById('searchInput').value = keyword;
-            performSearch();
-        }
-
-        async function performSearch() {
-            const keyword = document.getElementById('searchInput').value.trim();
-            if(!keyword) return;
-            
-            const btn = document.getElementById('searchBtnText');
-            btn.innerText = "Searching...";
-            document.getElementById('searchResultsOverlay').classList.remove('hidden');
-            document.getElementById('searchKeyword').innerText = `"${keyword}"`;
-            
-            const container = document.getElementById('searchResultsContainer');
-            container.innerHTML = `<div class="col-span-1 md:col-span-2 text-center py-6 text-indigo-600 font-semibold animate-pulse">Scanning live data for "${keyword}"...</div>`;
-
-            try {
-                const response = await fetch(`${WORKER_URL}?q=${encodeURIComponent(keyword)}`);
-                if (!response.ok) throw new Error("Worker request failed: " + response.status);
-
-                const data = await response.json();
-                const answer = data.result?.answer;
-                if (!answer) throw new Error(data.error || "Worker returned no answer");
-
-                let items;
-                try {
-                    const cleaned = answer.replace(/^```(?:json)?\\s*/i, "").replace(/\\s*```$/, "");
-                    const match = cleaned.match(/\\[[\\s\\S]*\\]/);
-                    items = JSON.parse(match ? match[0] : cleaned);
-                } catch {
-                    items = answer.split("\\n")
-                        .map(line => line.replace(/^\\s*[-*\\d.)]+\\s*/, "").trim())
-                        .filter(Boolean)
-                        .slice(0, 4)
-                        .map(title => ({ title, type: "Result" }));
-                }
-
-                if (!Array.isArray(items)) throw new Error("Invalid search response");
-                items = items.filter(item => item && item.title).slice(0, 4);
-                
-                container.innerHTML = '';
-            items.forEach(item => {
-            const card = document.createElement('div');
-            card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer text-left";
-            card.onclick = () => openModal(item.type, item.title);
-            card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 mb-2 inline-block">${item.type}</span><div class="mt-2 text-sm text-slate-700 leading-relaxed">${marked.parse(item.title)}</div>`;
-            container.appendChild(card);
-        });
-                
-            } catch (error) {
-                // Offline Fallback
-                const allItems = [...initialData.jobs.map(t=>({title:t, type:'Job'})), ...initialData.results.map(t=>({title:t, type:'Result'})), ...initialData.syllabus.map(t=>({title:t, type:'Syllabus'}))];
-                const matches = allItems.filter(item => item.title.toLowerCase().includes(keyword.toLowerCase()));
-                container.innerHTML = '';
-                
-                if(matches.length > 0) {
-                    matches.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = "bg-white p-3 md:p-4 rounded-xl border border-indigo-100 shadow-sm cursor-pointer";
-                        card.onclick = () => openModal(item.type, item.title);
-                        card.innerHTML = `<span class="text-[10px] font-bold uppercase px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 block w-max mb-2">${item.type}</span><h3 class="font-bold text-slate-800 text-sm md:text-base">${item.title}</h3>`;
-                        container.appendChild(card);
-                    });
-                } else {
-                    container.innerHTML = `<div class="col-span-1 md:col-span-2 text-center py-10 text-slate-500 font-semibold">No exact match found. Please try a different keyword.</div>`;
-                }
-            } finally {
-                btn.innerText = "Search";
-            }
-        }
-
-        function closeSearch() {
-            document.getElementById('searchResultsOverlay').classList.add('hidden');
-            document.getElementById('searchInput').value = '';
-        }
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') performSearch();
-        });
-
-        // SMART DATA ENGINE (Replaces API logic to save limits)
-        function generateSmartData(title) {
-            const t = title.toUpperCase();
-            let feeGen = "₹100/-", feeSC = "₹0/-", ageMin = "18 Years", ageMax = "27 Years", elig = "Check Official PDF";
-            
-            if (t.includes('BANK') || t.includes('IBPS') || t.includes('SBI')) {
-                feeGen = "₹850/-"; feeSC = "₹175/-"; ageMin = "20 Years"; ageMax = "30 Years"; elig = "Bachelor's Degree";
-            } else if (t.includes('UPSC')) {
-                feeGen = "₹100/-"; feeSC = "₹0/-"; ageMin = "21 Years"; ageMax = "32 Years"; elig = "Bachelor's Degree";
-            } else if (t.includes('RAILWAY') || t.includes('RRB')) {
-                feeGen = "₹500/-"; feeSC = "₹250/-"; ageMin = "18 Years"; ageMax = "33 Years"; elig = "10th / ITI / Degree";
-            } else if (t.includes('POLICE') || t.includes('CONSTABLE')) {
-                feeGen = "₹400/-"; feeSC = "₹100/-"; ageMin = "18 Years"; ageMax = "25 Years"; elig = "12th Pass";
-            } else if (t.includes('POST') || t.includes('GDS')) {
-                feeGen = "₹100/-"; feeSC = "₹0/-"; ageMin = "18 Years"; ageMax = "40 Years"; elig = "10th Pass with Math/English";
-            }
-
-            return { feeGen, feeSC, ageMin, ageMax, eligibility: elig };
-        }
-
-        async function openModal(category, title) {
-            const modal = document.getElementById('smartModal');
-            const content = document.getElementById('modalContent');
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
-            
-            content.innerHTML = `<div class="text-center py-10"><div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto"></div><p class="mt-4 text-slate-500 font-semibold animate-pulse">Loading Official Details...</p></div>`;
-
-            // STRICT LOGIC: Ignore Fees/Age for Non-Jobs
-            const titleUpper = title.toUpperCase();
-            const catUpper = category.toUpperCase();
-            const isNonJob = titleUpper.includes("SYLLABUS") || titleUpper.includes("RESULT") || titleUpper.includes("ADMIT") || titleUpper.includes("KEY") || 
-                             catUpper.includes("SYLLABUS") || catUpper.includes("RESULT") || catUpper.includes("ADMIT");
-
-            // Fake brief network delay for realism
-            setTimeout(() => {
-                let html = '<div class="text-left text-sm md:text-base text-slate-700 overflow-x-auto">' + marked.parse(title) + '</div>';
-                
-
-                html += `
-                    <div class="border border-indigo-100 rounded-xl overflow-hidden mb-4">
-                        <div class="bg-indigo-50/50 p-2 md:p-3 border-b border-indigo-100 font-bold text-indigo-800 text-sm flex items-center gap-2"><i class="fa-regular fa-calendar-check"></i> IMPORTANT DATES</div>
-                        <div class="p-3 bg-white space-y-2 text-sm text-slate-700">
-                            <p>Update Issued: <b>${getRecentDate(0)}</b></p>
-                            <p>Event Date: <b>As per Schedule</b></p>
-                        </div>
-                    </div>
-                `;
-
-                if (!isNonJob) {
-                    const data = generateSmartData(title);
-                    html += `
-                        <div class="border border-slate-100 rounded-xl overflow-hidden mb-4">
-                            <div class="bg-slate-50 p-2 border-b border-slate-100 font-bold text-slate-800 text-xs uppercase tracking-wider">Application Fee</div>
-                            <div class="p-3 bg-white space-y-2 text-sm text-slate-700">
-                                <p class="flex justify-between border-b pb-1"><span>General/OBC/EWS:</span> <b>${data.feeGen}</b></p>
-                                <p class="flex justify-between border-b pb-1"><span>SC/ST/PH:</span> <b>${data.feeSC}</b></p>
-                                <p class="flex justify-between"><span>All Category Female:</span> <b>As per rules</b></p>
-                            </div>
-                        </div>
-
-                        <div class="border border-slate-100 rounded-xl overflow-hidden mb-4">
-                            <div class="bg-slate-50 p-2 border-b border-slate-100 font-bold text-slate-800 text-xs uppercase tracking-wider">Age & Eligibility</div>
-                            <div class="p-3 bg-white space-y-2 text-sm text-slate-700 text-center">
-                                <p>Min Age: <b>${data.ageMin}</b> | Max Age: <b>${data.ageMax}</b></p>
-                                <p class="border-t pt-2 mt-2">Eligibility: <b class="text-indigo-600">${data.eligibility}</b></p>
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                                html += `<div class="flex flex-col gap-2">`;
-                if (isNonJob) {
-                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base flex items-center justify-center gap-2 no-underline text-center"><i class="fa-solid fa-download"></i> Download Official PDF</a>`;
-                } else {
-                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base text-center block no-underline">Apply Online (Click Here)</a>`;
-                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-green text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Download Notification</a>`;
-                }
-                html += `<a href="https://ssc.gov.in" target="_blank" class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Official Website</a></div>`;
-
-                content.innerHTML = html;
-                
-                
-            }, 300);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('smartModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        window.onload = initPage;
-    </script>
+    
 
 
 
@@ -755,65 +490,10 @@ footer a {
     }
 }
 </style>
-<script>
-setInterval(function() {
-    var modal = document.getElementById('modalContent');
-    if(!modal) return;
-    
-    // 1. STRONG Text Remover for AI garbage words ("Premium CSS", "Working 100%")
-    // Yeh pure modal body ki saari text elements ko check karke turant delete kar dega
-    modal.querySelectorAll('*').forEach(function(el) {
-        // Agar us element ke andar sirf text hai (bina link/image ke)
-        if(el.children.length === 0 && el.textContent) {
-           let text = el.textContent.toLowerCase().trim();
-           if(text === 'premium css' || text === 'working 100%' || text === 'premium css working 100%') {
-               el.style.display = 'none';
-               // Upar wala table row check karke usko bhi hide
-               let parentRow = el.closest('tr');
-               if(parentRow) parentRow.style.display = 'none';
-           }
-        }
-    });
 
-    // 2. TRUE LINK FIXER (Jo sahi se target url extract karke A-tag me set kare)
-    // AI kabhi aise return kar skta hai: [Apply Online](https://example.com)
-    const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
-    if(modal.innerHTML.match(regex)) {
-        modal.innerHTML = modal.innerHTML.replace(regex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    }
-
-    // 3. Make them beautiful & clicky!
-    modal.querySelectorAll('a').forEach(function(a) {
-        // Double check target
-        if(!a.hasAttribute('target')) a.setAttribute('target', '_blank');
-        
-        var text = a.innerText.toLowerCase();
-        if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
-            a.classList.add('btn-green');
-        }
-    });
-}, 500);
-</script>
 
 <!-- NUKE SCRIPT -->
-<script>
-setInterval(function() {
-    var m = document.getElementById('modalContent');
-    if(!m) return;
-    
-    // Har table row aur paragraph ko check karega
-    m.querySelectorAll('tr, p, h2, h3, span').forEach(function(el) {
-        var txt = el.innerText || el.textContent;
-        if(txt) {
-            txt = txt.toLowerCase();
-            // Agar usme 'premium css' ya 'working' hai, toh turant gayab kar do
-            if(txt.includes('premium css') || txt.includes('working 100')) {
-                el.style.display = 'none';
-            }
-        }
-    });
-}, 300); // Bahut fast check karega (300ms)
-</script>
+
 
 
 
@@ -827,67 +507,7 @@ setInterval(function() {
     animation: boxAnim 0.4s ease-in-out forwards;
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const updatesPool = [
-        { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form" },
-        { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result" },
-        { title: "Railway Group D Card", query: "RRB Group D Admit Card" },
-        { title: "CTET Answer Key", query: "CTET Answer Key Notice" },
-        { title: "IBPS PO Notification", query: "IBPS PO Recruitment" },
-        { title: "NEET UG Counselling", query: "NEET UG Counselling Schedule" },
-        { title: "UP Police Constable", query: "UP Police Constable Result" },
-        { title: "Bihar Board 12th Admit", query: "Bihar Board Inter Admit Card" },
-        { title: "SSC CHSL Tier 1", query: "SSC CHSL Tier 1 Exam" },
-        { title: "RRB NTPC Form", query: "RRB NTPC Recruitment Online Form" }
-    ];
 
-    // Home page ke pehle 4 action cards ko saaf taur par target karna
-    setTimeout(function() {
-        const gridContainers = document.querySelectorAll('.grid.grid-cols-2');
-        let targetBoxes = [];
-        
-        gridContainers.forEach(grid => {
-            let items = grid.querySelectorAll('a, button, div.rounded-xl');
-            items.forEach(item => {
-                if(targetBoxes.length < 4 && !targetBoxes.includes(item)) {
-                    targetBoxes.push(item);
-                }
-            });
-        });
-
-        if(targetBoxes.length >= 4) {
-            setInterval(function() {
-                let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
-                
-                for(let i = 0; i < 4; i++) {
-                    let box = targetBoxes[i];
-                    let data = shuffled[i];
-                    if(!box) continue;
-
-                    let label = box.querySelector('span, p, div:last-child') || box;
-
-                    box.classList.add('rot-box-active');
-                    
-                    setTimeout(function() {
-                        label.innerText = data.title;
-                        box.onclick = function(e) {
-                            e.preventDefault();
-                            if(typeof openSearchModal === 'function') {
-                                openSearchModal(data.query);
-                            }
-                        };
-                    }, 200);
-
-                    setTimeout(function() {
-                        box.classList.remove('rot-box-active');
-                    }, 400);
-                }
-            }, 6000); // Har 6 seconds mein sabhi 4 boxes rotate honge
-        }
-    }, 1000);
-});
-</script>
 
 
 
@@ -899,131 +519,55 @@ document.addEventListener("DOMContentLoaded", function() {
     z-index: 999999 !important;
 }
 </style>
-<script>
-document.addEventListener("click", function(e) {
-    var target = e.target.closest('a, button, div');
-    if(!target) return;
-    
-    var modal = target.closest('#modalContent, .modal, [id*="modal"]');
-    if(modal) {
-        var text = target.innerText ? target.innerText.toLowerCase() : "";
-        
-        if(text.includes('download') || text.includes('pdf') || text.includes('notification') || text.includes('official') || text.includes('apply')) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            var url = target.getAttribute('href');
-            if(!url || url === '#' || url === '') {
-                if(text.includes('upsc')) {
-                    url = 'https://upsc.gov.in';
-                } else if(text.includes('railway') || text.includes('rrb')) {
-                    url = 'https://www.rrbcdg.gov.in';
-                } else if(text.includes('ctet')) {
-                    url = 'https://ctet.nic.in';
-                } else {
-                    url = 'https://ssc.gov.in';
-                }
-            }
-            
-            window.open(url, '_blank');
-        }
-    }
-}, true);
-</script>
+
+
+
+
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('/api/updates')
+    // Aapka Cloudflare Worker API endpoint
+    const WORKER_URL = "https://sarkariastra-worker.yourname.workers.dev"; // Apka actual worker URL yahan aayega
+
+    const containerMap = {
+        'result': 'list-results',
+        'admit': 'list-admitcard',
+        'job': 'list-jobs',
+        'answerkey': 'list-answerkey',
+        'syllabus': 'list-syllabus',
+        'admission': 'list-admission'
+    };
+
+    // Worker se data fetch karna
+    fetch(WORKER_URL)
         .then(res => res.json())
         .then(data => {
-            if(!Array.isArray(data)) return;
-            
-            // Categories ke hisaab se filter karein
-            let jobs = data.filter(item => item.category === 'job');
-            let admits = data.filter(item => item.category === 'admit');
-            let results = data.filter(item => item.category === 'result' || item.category === 'admission');
-            
-            // Helper function to render items into lists if containers exist
-            function populateList(selector, items) {
-                const container = document.querySelector(selector);
-                if(container && items.length > 0) {
-                    container.innerHTML = items.map(item => `
-                        <li class="py-2 px-3 hover:bg-slate-50 transition rounded-lg">
-                            <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-semibold text-sm flex items-center">
-                                <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2"></i> ${item.title}
-                                <span class="ml-auto text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold">New</span>
-                            </a>
-                        /li>
+            if(data && data.updates) {
+                populateData(data.updates);
+            }
+        })
+        .catch(err => {
+            console.log("Using default cached view...", err);
+        });
+
+    function populateData(updates) {
+        Object.keys(containerMap).forEach(catKey => {
+            const elId = containerMap[catKey];
+            const container = document.getElementById(elId);
+            if (container) {
+                const items = updates.filter(i => i.cat === catKey);
+                if(items.length > 0) {
+                    container.innerHTML = items.map(i => `
+                        <a href="${i.url}" target="_blank" class="block py-2.5 px-3 border-b border-gray-100 hover:bg-slate-50 transition text-sm text-slate-800 hover:text-blue-600 font-medium truncate">
+                            <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2"></i>${i.title}
+                        3</a>
                     `).join('');
                 }
             }
-            
-            // Agar aapke HTML mein specific selectors hain toh yahan map ho jayenge
-            console.log("Live Sarkari Updates Loaded Successfully:", data.length);
-        })
-        .catch(err => console.error("Failed to load live updates:", err));
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    fetch('/api/updates')
-        .then(res => res.json())
-        .then(data => {
-            if(!Array.isArray(data)) return;
-
-            const categories = ['job', 'admit', 'result', 'admission', 'answerkey'];
-
-            categories.forEach(cat => {
-                let items = data.filter(item => item.category === cat);
-                let container = document.getElementById(cat + '-list') || document.querySelector('.' + cat + '-container');
-                
-                if (container) {
-                    renderCategoryList(container, items);
-                } else {
-                    // Agar specific container nahi hai, to console mein log rakho ya default dhoondo
-                    console.log("Container for category not found:", cat);
-                }
-            });
-        })
-        .catch(err => console.error("Error loading updates:", err));
-});
-
-function renderCategoryList(container, items) {
-    container.innerHTML = "";
-    let visibleCount = 10;
-
-    function draw() {
-        let currentItems = items.slice(0, visibleCount);
-        let htmlContent = currentItems.map(item => `
-            <li class="py-2 px-3 border-b border-gray-100 hover:bg-slate-50 transition rounded flex items-center justify-between text-sm">
-                <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
-                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
-                    <span class="truncate">${item.title}</span>
-                </a>
-                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
-            </li>
-        `).join('');
-
-        if (items.length > visibleCount) {
-            htmlContent += `
-                <div class="text-center py-3">
-                    <button onclick="window.loadMore${container.id}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full transition shadow">
-                        View More (${items.length - visibleCount} more)
-                    </button>
-                </div>
-            `;
-        }
-        container.innerHTML = htmlContent;
+        });
     }
-
-    window['loadMore' + container.id] = function() {
-        visibleCount += 20;
-        draw();
-    };
-
-    draw();
-}
+});
 </script>
 </body>
 </html>
