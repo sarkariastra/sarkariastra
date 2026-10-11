@@ -257,5 +257,134 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+
+<div class="max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 mt-6">
+    <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+        <div class="bg-red-600 text-white p-4 font-bold text-xl flex items-center gap-3">Results</div>
+        <div class="flex-1 p-2 space-y-1" id="list-results"></div>
+    </div>
+    <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+        <div class="bg-blue-600 text-white p-4 font-bold text-xl flex items-center gap-3">Admit Card</div>
+        <div class="flex-1 p-2 space-y-1" id="list-admitcard"></div>
+    </div>
+    <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+        <div class="bg-green-600 text-white p-4 font-bold text-xl flex items-center gap-3">Latest Jobs</div>
+        <div class="flex-1 p-2 space-y-1" id="list-jobs"></div>
+    </div>
+</div>
+<div class="max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12">
+    <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+        <div class="bg-slate-800 text-white p-4 font-bold text-xl flex items-center gap-3">Answer Key</div>
+        <div class="flex-1 p-2 space-y-1" id="list-answerkey"></div>
+    </div>
+    <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+        <div class="bg-orange-600 text-white p-4 font-bold text-xl flex items-center gap-3">Admission</div>
+        <div class="flex-1 p-2 space-y-1" id="list-admission"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const updates = [
+        { category: "result", title: "UPSC Civil Services Prelims Result 2026", url: "https://upsc.gov.in" },
+        { category: "result", title: "CBSE Board 10th / 12th Result 2026", url: "https://cbse.gov.in" },
+        { category: "result", title: "SSC CHSL Tier 1 Result 2026", url: "https://ssc.gov.in" },
+        { category: "result", title: "Bihar Board Inter / Matric Result 2026", url: "https://biharboardonline.bihar.gov.in" },
+        { category: "result", title: "UP Board Class 10th & 12th Result 2026", url: "https://upmsp.edu.in" },
+        { category: "result", title: "CTET July Final Result 2026", url: "https://ctet.nic.in" },
+        { category: "result", title: "NTA NEET UG Result 2026", url: "https://exams.nta.ac.in" },
+        { category: "result", title: "JEE Mains Phase 2 Result 2026", url: "https://jeemain.nta.nic.in" },
+        { category: "result", title: "Rajasthan PTET Result 2026", url: "https://ptetvmou2026.com" },
+        { category: "result", title: "Navy Tradesman Mate Result 2026", url: "https://joinindiannavy.gov.in" },
+
+        { category: "admit", title: "Railway Group D Admit Card 2026", url: "https://rrcb.gov.in" },
+        { category: "admit", title: "CTET July Admit Card 2026", url: "https://ctet.nic.in" },
+        { category: "admit", title: "UPSC CSE Prelims Admit Card 2026", url: "https://upsc.gov.in" },
+        { category: "admit", title: "SSC CGL Tier 1 Admit Card 2026", url: "https://ssc.gov.in" },
+        { category: "admit", title: "IBPS Clerk Prelims Call Letter 2026", url: "https://ibps.in" },
+        { category: "admit", title: "NEET UG Hall Ticket 2026", url: "https://neet.nta.nic.in" },
+        { category: "admit", title: "JEE Advanced Admit Card 2026", url: "https://jeeadv.ac.in" },
+        { category: "admit", title: "UP Police Constable Admit Card 2026", url: "https://uppbpb.gov.in" },
+        { category: "admit", title: "SBI Clerk Mains Admit Card 2026", url: "https://sbi.co.in" },
+        { category: "admit", title: "LIC AAO Call Letter 2026", url: "https://licindia.in" },
+
+        { category: "job", title: "SSC CGL 2026 Online Form", url: "https://ssc.gov.in" },
+        { category: "job", title: "UPSC Civil Services Examination 2026", url: "https://upsc.gov.in" },
+        { category: "job", title: "Railway Group D 1 Lakh+ Posts Recruitment 2026", url: "https://rrcb.gov.in" },
+        { category: "job", title: "IBPS PO / Management Trainee 2026", url: "https://ibps.in" },
+        { category: "job", title: "SBI Clerk Recruitment 2026 Apply Online", url: "https://sbi.co.in" },
+        { category: "job", title: "Indian Army Agniveer 2026 Batch Notification", url: "https://joinindiannavy.gov.in" },
+        { category: "job", title: "Delhi Police Constable Vacancy 2026", url: "https://ssc.gov.in" },
+        { category: "job", title: "LIC AAO & Assistant Recruitment 2026", url: "https://licindia.in" },
+        { category: "job", title: "RRB ALP & Technician Online Form 2026", url: "https://rrcb.gov.in" },
+        { category: "job", title: "SSC CHSL 10+2 Exam 2026 Notification", url: "https://ssc.gov.in" },
+
+        { category: "answerkey", title: "UPSC CSE Prelims Answer Key 2026", url: "https://upsc.gov.in" },
+        { category: "answerkey", title: "SSC CGL Tier 1 Answer Key 2026", url: "https://ssc.gov.in" },
+        { category: "answerkey", title: "CTET Paper 1 & 2 Official Answer Key 2026", url: "https://ctet.nic.in" },
+        { category: "answerkey", title: "NEET UG Official Answer Key By NTA 2026", url: "https://neet.nta.nic.in" },
+        { category: "answerkey", title: "JEE Mains Answer Key (Session 1 & 2) 2026", url: "https://jeemain.nta.nic.in" },
+        { category: "answerkey", title: "IBPS PO Prelims Answer Key / Response Sheet", url: "https://ibps.in" },
+        { category: "answerkey", title: "UP Police Constable Answer Key 2026", url: "https://uppbpb.gov.in" },
+        { category: "answerkey", title: "SSC CHSL Answer Key 2026", url: "https://ssc.gov.in" },
+
+        { category: "admission", title: "NEET UG Medical Counselling 2026 Registration", url: "https://mcc.nic.in" },
+        { category: "admission", title: "JEE Advanced Online Admission 2026", url: "https://jeeadv.ac.in" },
+        { category: "admission", title: "DU (Delhi University) UG/PG Admission 2026", url: "https://du.ac.in" },
+        { category: "admission", title: "BHU UG / PG Entrance Admission 2026", url: "https://bhuonline.in" },
+        { category: "admission", title: "IGNOU Admissions 2026 (July Session)", url: "https://ignou.ac.in" },
+        { category: "admission", title: "JNU Entrance Exam Admission 2026", url: "https://jnu.ac.in" }
+    ];
+
+    const mapping = {
+        'result': 'list-results',
+        'admit': 'list-admitcard',
+        'job': 'list-jobs',
+        'answerkey': 'list-answerkey',
+        'admission': 'list-admission'
+    };
+
+    Object.keys(mapping).forEach(cat => {
+        let items = updates.filter(item => item.category === cat);
+        let container = document.getElementById(mapping[cat]);
+        if (container) {
+            renderList(container, items, mapping[cat]);
+        }
+    });
+});
+
+function renderList(container, items, containerId) {
+    let limit = 10;
+    function draw() {
+        let visible = items.slice(0, limit);
+        let html = visible.map(i => `
+            <li class="py-2.5 px-3 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
+                <a href="${i.url}" target="_blank" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
+                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
+                    <span class="truncate">${i.title}</span>
+                </a>
+                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
+            </li>
+        `).join('');
+
+        if (items.length > limit) {
+            html += `
+                <div class="text-center py-3 bg-slate-50">
+                    <button onclick="window.loadMore_${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full shadow transition">
+                        View More (${items.length - limit} more)
+                    </button>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    window['loadMore_' + containerId] = function() {
+        limit += 10;
+        draw();
+    };
+    draw();
+}
+</script>
 </body>
 </html>
