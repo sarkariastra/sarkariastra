@@ -930,5 +930,39 @@ document.addEventListener("click", function(e) {
     }
 }, true);
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/api/updates')
+        .then(res => res.json())
+        .then(data => {
+            if(!Array.isArray(data)) return;
+            
+            // Categories ke hisaab se filter karein
+            let jobs = data.filter(item => item.category === 'job');
+            let admits = data.filter(item => item.category === 'admit');
+            let results = data.filter(item => item.category === 'result' || item.category === 'admission');
+            
+            // Helper function to render items into lists if containers exist
+            function populateList(selector, items) {
+                const container = document.querySelector(selector);
+                if(container && items.length > 0) {
+                    container.innerHTML = items.map(item => `
+                        <li class="py-2 px-3 hover:bg-slate-50 transition rounded-lg">
+                            <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-semibold text-sm flex items-center">
+                                <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2"></i> ${item.title}
+                                <span class="ml-auto text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold">New</span>
+                            </a>
+                        /li>
+                    `).join('');
+                }
+            }
+            
+            // Agar aapke HTML mein specific selectors hain toh yahan map ho jayenge
+            console.log("Live Sarkari Updates Loaded Successfully:", data.length);
+        })
+        .catch(err => console.error("Failed to load live updates:", err));
+});
+</script>
 </body>
 </html>
