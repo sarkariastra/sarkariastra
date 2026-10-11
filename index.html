@@ -816,19 +816,19 @@ setInterval(function() {
 </script>
 
 
+
 <!-- DYNAMIC ROTATING BOXES -->
 <style>
-@keyframes boxFade {
-    0% { opacity: 0; transform: scale(0.95); }
+@keyframes boxAnim {
+    0% { opacity: 0.3; transform: scale(0.96); }
     100% { opacity: 1; transform: scale(1); }
 }
-.animate-rotate-box {
-    animation: boxFade 0.5s ease-in-out forwards;
+.rot-box-active {
+    animation: boxAnim 0.4s ease-in-out forwards;
 }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Trending updates ka pool
     const updatesPool = [
         { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form" },
         { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result" },
@@ -842,55 +842,50 @@ document.addEventListener("DOMContentLoaded", function() {
         { title: "RRB NTPC Form", query: "RRB NTPC Recruitment Online Form" }
     ];
 
-    // Seedha un 4 colorful grid boxes ko pakdega jo home page par hain
-    const gridContainer = document.querySelector('.grid.grid-cols-2');
-    if(gridContainer) {
-        const boxes = gridContainer.querySelectorAll('a, button, div.rounded-xl, div[class*="bg-"]');
+    // Home page ke pehle 4 action cards ko saaf taur par target karna
+    setTimeout(function() {
+        const gridContainers = document.querySelectorAll('.grid.grid-cols-2');
+        let targetBoxes = [];
         
-        if(boxes.length >= 4) {
+        gridContainers.forEach(grid => {
+            let items = grid.querySelectorAll('a, button, div.rounded-xl');
+            items.forEach(item => {
+                if(targetBoxes.length < 4 && !targetBoxes.includes(item)) {
+                    targetBoxes.push(item);
+                }
+            });
+        });
+
+        if(targetBoxes.length >= 4) {
             setInterval(function() {
-                // Shuffle pool randomly
                 let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
                 
                 for(let i = 0; i < 4; i++) {
-                    let box = boxes[i];
-                    let item = shuffled[i];
+                    let box = targetBoxes[i];
+                    let data = shuffled[i];
                     if(!box) continue;
 
-                    // Animation class add karein
-                    box.classList.remove('animate-rotate-box');
-                    void box.offsetWidth; // Trigger reflow
-                    box.classList.add('animate-rotate-box');
+                    let label = box.querySelector('span, p, div:last-child') || box;
 
-                    // Text update karein (andar ke text node ya span ko dhoondh kar)
-                    let textNode = box.querySelector('span, p, div:last-child') || box;
-                    // Agar icon ke sath text hai toh text container badlein
-                    let spans = box.querySelectorAll('span');
-                    if(spans.length > 1) {
-                        spans[spans.length - 1].innerText = item.title;
-                    } else if(textNode) {
-                        textNode.innerText = item.title;
-                    }
+                    box.classList.add('rot-box-active');
                     
-                    // Click karne par wahi query search modal mein khul jaye
-                    box.onclick = function(e) {
-                        e.preventDefault();
-                        if(typeof openSearchModal === 'function') {
-                            openSearchModal(item.query);
-                        } else {
-                            // Fallback search trigger
-                            let searchInput = document.querySelector('input[type="text"], input[name="q"]');
-                            let searchBtn = document.querySelector('button#searchBtn, button[type="submit"]');
-                            if(searchInput) {
-                                searchInput.value = item.query;
-                                if(searchBtn) searchBtn.click();
+                    setTimeout(function() {
+                        label.innerText = data.title;
+                        box.onclick = function(e) {
+                            e.preventDefault();
+                            if(typeof openSearchModal === 'function') {
+                                openSearchModal(data.query);
                             }
-                        }
-                    };
+                        };
+                    }, 200);
+
+                    setTimeout(function() {
+                        box.classList.remove('rot-box-active');
+                    }, 400);
                 }
-            }, 6000); // Har 6 seconds mein naye updates smooth animation ke sath aayenge
+            }, 6000); // Har 6 seconds mein sabhi 4 boxes rotate honge
         }
-    }
+    }, 1000);
 });
 </script>
 </body>
