@@ -52,83 +52,81 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
 
 
 
-/* --- SMART MOBILE UI (PRO BEAUTY & FULL WIDTH) --- */
+
+/* --- FINAL SMART MOBILE UI (PRO BEAUTY, SCROLL, FULL WIDTH) --- */
 @media (max-width: 768px) {
-    /* 1. DONO SIDE KI KHALI JAGAH KHATAM KAREN (Full Screen Width) */
-    body, .container, .container-fluid, .row, .col-12, .card, .card-body, .modal-body, #modalContent {
-        padding-left: 2px !important;
-        padding-right: 2px !important;
+    /* 1. Remove all extra spacing outside and inside the main container */
+    body, .container, .result-card, #modalContent, .modal-body {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    #modalContent {
+        padding: 5px !important;
     }
 
     #modalContent table {
         display: block !important;
         width: 100% !important;
         background: #ffffff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
         border: 1px solid #e2e8f0 !important;
-        margin-bottom: 20px !important;
-        overflow-x: auto !important;
+        margin-bottom: 24px !important;
+        overflow-x: auto !important; /* Extremely important for 3+ columns */
         -webkit-overflow-scrolling: touch !important;
-        font-family: 'Inter', system-ui, sans-serif !important;
     }
 
-    /* 2. FOR 3+ COLUMNS (Scrollable with highlights) */
+    /* 2. FOR 3+ COLUMNS (Responsive Scrollable Table) */
     #modalContent thead { display: table-header-group !important; }
     #modalContent tbody { display: table-row-group !important; }
     #modalContent tr { display: table-row !important; }
     
     #modalContent th { 
-        background: #f8fafc !important; color: #334155 !important; 
-        padding: 15px 12px !important; font-size: 12px !important; 
+        background: #f1f5f9 !important; color: #475569 !important; 
+        padding: 12px 10px !important; font-size: 11px !important; 
         font-weight: 800 !important; text-transform: uppercase !important; 
-        letter-spacing: 0.5px !important; border-bottom: 2px solid #cbd5e1 !important; 
+        border-bottom: 2px solid #cbd5e1 !important; 
         white-space: nowrap !important; text-align: left !important;
     }
     
     #modalContent td { 
-        display: table-cell !important; padding: 14px 12px !important; 
-        border-bottom: 1px dashed #e2e8f0 !important; /* Dashed receipt style */
-        font-size: 14px !important; line-height: 1.6 !important;
-        color: #1e293b !important; font-weight: 600 !important; min-width: 140px !important; 
+        display: table-cell !important; padding: 12px 10px !important; 
+        border-bottom: 1px solid #e2e8f0 !important; 
+        font-size: 13px !important; line-height: 1.5 !important;
+        color: #0f172a !important; font-weight: 500 !important; 
+        min-width: 130px !important; /* Prevents text from being crushed */
     }
 
-    /* 3. FOR 2-COLUMN (Beautiful Card UI) */
+    /* 3. FOR 2-COLUMN (Card/List style - Target style) */
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) thead { display: none !important; }
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tbody { display: block !important; }
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tr { 
         display: flex !important; justify-content: space-between !important; 
-        align-items: center !important; padding: 16px 14px !important; 
-        border-bottom: 1px solid #f1f5f9 !important; background: #ffffff !important;
+        align-items: center !important; padding: 12px 10px !important; 
+        border-bottom: 1px solid #f1f5f9 !important; 
+    }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tr:last-child {
+        border-bottom: none !important;
     }
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td { 
         display: block !important; border: none !important; padding: 0 !important; 
         min-width: 0 !important; white-space: normal !important; 
     }
     
-    /* LEFT SIDE: Beautiful Label (Uppercase & Grey) */
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:first-child { 
         color: #64748b !important; font-size: 12px !important;
-        font-weight: 700 !important; width: 45% !important; padding-right: 12px !important; 
-        text-transform: uppercase !important; letter-spacing: 0.5px !important;
+        font-weight: 600 !important; width: 45% !important; 
+        padding-right: 8px !important; 
     }
     
-    /* RIGHT SIDE: Highlighted Value (Extra Bold & Dark) */
     #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:last-child { 
-        color: #0f172a !important; font-size: 15px !important;
+        color: #1e293b !important; font-size: 14px !important;
         font-weight: 800 !important; width: 55% !important; 
-        text-align: right !important; line-height: 1.4 !important;
-    }
-
-    /* 4. LINK HIGHLIGHTS (Blue Button Style) */
-    #modalContent a {
-        color: #2563eb !important; font-weight: 700 !important;
-        text-decoration: none !important; background: #eff6ff !important;
-        padding: 4px 10px !important; border-radius: 6px !important;
-        display: inline-block !important; border: 1px solid #bfdbfe !important;
+        text-align: right !important; 
     }
 }
 </style>
