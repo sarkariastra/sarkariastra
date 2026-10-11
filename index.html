@@ -815,61 +815,81 @@ setInterval(function() {
 }, 300); // Bahut fast check karega (300ms)
 </script>
 
+
 <!-- DYNAMIC ROTATING BOXES -->
 <style>
 @keyframes boxFade {
-    0% { opacity: 0; transform: translateY(10px) scale(0.98); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
 }
 .animate-rotate-box {
-    animation: boxFade 0.6s ease-in-out forwards;
-    transition: all 0.3s ease;
+    animation: boxFade 0.5s ease-in-out forwards;
 }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Alag-alag trending updates ka pool jisme se boxes rotate honge
+    // Trending updates ka pool
     const updatesPool = [
-        { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form", type: "job", color: "from-blue-600 to-blue-700", icon: "fa-briefcase" },
-        { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result", type: "result", color: "from-purple-600 to-indigo-700", icon: "fa-check-circle" },
-        { title: "Railway Group D Card", query: "RRB Group D Admit Card", type: "admit", color: "from-emerald-600 to-teal-700", icon: "fa-id-card" },
-        { title: "CTET Answer Key", query: "CTET Answer Key Notice", type: "answer", color: "from-rose-600 to-red-700", icon: "fa-file-alt" },
-        { title: "IBPS PO Notification", query: "IBPS PO Recruitment", type: "job", color: "from-amber-600 to-orange-700", icon: "fa-user-tie" },
-        { title: "NEET UG Counselling", query: "NEET UG Counselling Schedule", type: "admission", color: "from-cyan-600 to-blue-800", icon: "fa-hospital" },
-        { title: "UP Police Constable", query: "UP Police Constable Result", type: "result", color: "from-violet-600 to-purple-800", icon: "fa-shield-alt" },
-        { title: "Bihar Board 12th Admit", query: "Bihar Board Inter Admit Card", type: "admit", color: "from-pink-600 to-rose-700", icon: "fa-graduation-cap" }
+        { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form" },
+        { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result" },
+        { title: "Railway Group D Card", query: "RRB Group D Admit Card" },
+        { title: "CTET Answer Key", query: "CTET Answer Key Notice" },
+        { title: "IBPS PO Notification", query: "IBPS PO Recruitment" },
+        { title: "NEET UG Counselling", query: "NEET UG Counselling Schedule" },
+        { title: "UP Police Constable", query: "UP Police Constable Result" },
+        { title: "Bihar Board 12th Admit", query: "Bihar Board Inter Admit Card" },
+        { title: "SSC CHSL Tier 1", query: "SSC CHSL Tier 1 Exam" },
+        { title: "RRB NTPC Form", query: "RRB NTPC Recruitment Online Form" }
     ];
 
-    // Home page ke wo 4 action buttons/boxes ko select karna
-    const actionBoxes = document.querySelectorAll('.grid.grid-cols-2 a, .grid.grid-cols-2 button, main .grid a');
-    
-    if(actionBoxes.length >= 4) {
-        setInterval(function() {
-            // Randomly ya sequentially pool me se 4 items chunna
-            let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
-            
-            for(let i = 0; i < 4 && i < actionBoxes.length; i++) {
-                let box = actionBoxes[i];
-                let item = shuffled[i];
+    // Seedha un 4 colorful grid boxes ko pakdega jo home page par hain
+    const gridContainer = document.querySelector('.grid.grid-cols-2');
+    if(gridContainer) {
+        const boxes = gridContainer.querySelectorAll('a, button, div.rounded-xl, div[class*="bg-"]');
+        
+        if(boxes.length >= 4) {
+            setInterval(function() {
+                // Shuffle pool randomly
+                let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
                 
-                // Add smooth animation class
-                box.classList.remove('animate-rotate-box');
-                void box.offsetWidth; // Trigger reflow for animation restart
-                box.classList.add('animate-rotate-box');
-                
-                // Update text query attribute ya onclick event
-                box.setAttribute('data-query', item.query);
-                
-                // Text update karein inside box
-                let textSpan = box.querySelector('span, p, div:last-child');
-                if(textSpan) {
-                    textSpan.innerText = item.title;
-                } else {
-                    // Fallback agar structure alag ho
-                    box.innerText = item.title;
+                for(let i = 0; i < 4; i++) {
+                    let box = boxes[i];
+                    let item = shuffled[i];
+                    if(!box) continue;
+
+                    // Animation class add karein
+                    box.classList.remove('animate-rotate-box');
+                    void box.offsetWidth; // Trigger reflow
+                    box.classList.add('animate-rotate-box');
+
+                    // Text update karein (andar ke text node ya span ko dhoondh kar)
+                    let textNode = box.querySelector('span, p, div:last-child') || box;
+                    // Agar icon ke sath text hai toh text container badlein
+                    let spans = box.querySelectorAll('span');
+                    if(spans.length > 1) {
+                        spans[spans.length - 1].innerText = item.title;
+                    } else if(textNode) {
+                        textNode.innerText = item.title;
+                    }
+                    
+                    // Click karne par wahi query search modal mein khul jaye
+                    box.onclick = function(e) {
+                        e.preventDefault();
+                        if(typeof openSearchModal === 'function') {
+                            openSearchModal(item.query);
+                        } else {
+                            // Fallback search trigger
+                            let searchInput = document.querySelector('input[type="text"], input[name="q"]');
+                            let searchBtn = document.querySelector('button#searchBtn, button[type="submit"]');
+                            if(searchInput) {
+                                searchInput.value = item.query;
+                                if(searchBtn) searchBtn.click();
+                            }
+                        }
+                    };
                 }
-            }
-        }, 5000); // Har 5 seconds me boxes smoothly naye updates ke sath rotate honge!
+            }, 6000); // Har 6 seconds mein naye updates smooth animation ke sath aayenge
+        }
     }
 });
 </script>
