@@ -814,5 +814,64 @@ setInterval(function() {
     });
 }, 300); // Bahut fast check karega (300ms)
 </script>
+
+<!-- DYNAMIC ROTATING BOXES -->
+<style>
+@keyframes boxFade {
+    0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-rotate-box {
+    animation: boxFade 0.6s ease-in-out forwards;
+    transition: all 0.3s ease;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Alag-alag trending updates ka pool jisme se boxes rotate honge
+    const updatesPool = [
+        { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form", type: "job", color: "from-blue-600 to-blue-700", icon: "fa-briefcase" },
+        { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result", type: "result", color: "from-purple-600 to-indigo-700", icon: "fa-check-circle" },
+        { title: "Railway Group D Card", query: "RRB Group D Admit Card", type: "admit", color: "from-emerald-600 to-teal-700", icon: "fa-id-card" },
+        { title: "CTET Answer Key", query: "CTET Answer Key Notice", type: "answer", color: "from-rose-600 to-red-700", icon: "fa-file-alt" },
+        { title: "IBPS PO Notification", query: "IBPS PO Recruitment", type: "job", color: "from-amber-600 to-orange-700", icon: "fa-user-tie" },
+        { title: "NEET UG Counselling", query: "NEET UG Counselling Schedule", type: "admission", color: "from-cyan-600 to-blue-800", icon: "fa-hospital" },
+        { title: "UP Police Constable", query: "UP Police Constable Result", type: "result", color: "from-violet-600 to-purple-800", icon: "fa-shield-alt" },
+        { title: "Bihar Board 12th Admit", query: "Bihar Board Inter Admit Card", type: "admit", color: "from-pink-600 to-rose-700", icon: "fa-graduation-cap" }
+    ];
+
+    // Home page ke wo 4 action buttons/boxes ko select karna
+    const actionBoxes = document.querySelectorAll('.grid.grid-cols-2 a, .grid.grid-cols-2 button, main .grid a');
+    
+    if(actionBoxes.length >= 4) {
+        setInterval(function() {
+            // Randomly ya sequentially pool me se 4 items chunna
+            let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
+            
+            for(let i = 0; i < 4 && i < actionBoxes.length; i++) {
+                let box = actionBoxes[i];
+                let item = shuffled[i];
+                
+                // Add smooth animation class
+                box.classList.remove('animate-rotate-box');
+                void box.offsetWidth; // Trigger reflow for animation restart
+                box.classList.add('animate-rotate-box');
+                
+                // Update text query attribute ya onclick event
+                box.setAttribute('data-query', item.query);
+                
+                // Text update karein inside box
+                let textSpan = box.querySelector('span, p, div:last-child');
+                if(textSpan) {
+                    textSpan.innerText = item.title;
+                } else {
+                    // Fallback agar structure alag ho
+                    box.innerText = item.title;
+                }
+            }
+        }, 5000); // Har 5 seconds me boxes smoothly naye updates ke sath rotate honge!
+    }
+});
+</script>
 </body>
 </html>
