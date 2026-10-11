@@ -665,5 +665,99 @@ setInterval(function() {
 
         window.onload = initPage;
     </script>
+
+<!-- PREMIUM VIP UI & LINK FIXER -->
+<style>
+@media (max-width: 768px) {
+    #modalContent { 
+        background: #f4f7fa !important; padding: 12px !important; 
+        font-family: 'Inter', system-ui, sans-serif !important; 
+    }
+    
+    #modalContent h2, #modalContent h3 { 
+        color: #3730a3 !important; background: #eef2ff !important; 
+        padding: 12px 14px !important; font-size: 13px !important; 
+        font-weight: 800 !important; text-transform: uppercase !important; 
+        border-radius: 10px 10px 0 0 !important; margin: 20px 0 0 0 !important;
+        border: 1px solid #e0e7ff !important; border-bottom: none !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    #modalContent table { 
+        width: 100% !important; background: #ffffff !important; 
+        border-radius: 0 0 10px 10px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important; 
+        border: 1px solid #e5e7eb !important; border-top: 1px solid #e0e7ff !important; 
+        margin-bottom: 20px !important; border-spacing: 0 !important;
+    }
+    
+    #modalContent thead { display: none !important; }
+    #modalContent tbody { display: block !important; width: 100% !important; }
+    
+    #modalContent tr { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; padding: 14px !important; 
+        border-bottom: 1px solid #f3f4f6 !important; 
+    }
+    #modalContent tr:last-child { border-bottom: none !important; }
+    
+    #modalContent td:first-child { 
+        color: #6b7280 !important; font-size: 13px !important; 
+        font-weight: 600 !important; width: 45% !important; 
+    }
+    
+    #modalContent td:last-child { 
+        color: #111827 !important; font-size: 14px !important; 
+        font-weight: 800 !important; width: 55% !important; 
+        text-align: right !important; 
+    }
+
+    #modalContent a { 
+        display: block !important; width: 100% !important; 
+        background: linear-gradient(135deg, #3b82f6, #2563eb) !important; 
+        color: #ffffff !important; padding: 14px !important; 
+        border-radius: 8px !important; text-align: center !important; 
+        font-weight: 800 !important; font-size: 15px !important; 
+        text-decoration: none !important; margin-top: 12px !important;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.2) !important;
+        box-sizing: border-box !important; border: none !important;
+    }
+    
+    #modalContent a.btn-green { 
+        background: linear-gradient(135deg, #10b981, #059669) !important; 
+        box-shadow: 0 4px 12px rgba(16,185,129,0.2) !important;
+    }
+}
+</style>
+<script>
+setInterval(function() {
+    var modal = document.getElementById('modalContent');
+    if(!modal) return;
+    
+    // 1. Markdown link ko real Button banana
+    if(modal.innerHTML.includes('[') && modal.innerHTML.includes('](')) {
+        modal.innerHTML = modal.innerHTML.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+    }
+
+    // 2. Buttons ko Green / Blue set karna
+    modal.querySelectorAll('a').forEach(function(a) {
+        if(!a.hasAttribute('target')) a.setAttribute('target', '_blank');
+        var text = a.innerText.toLowerCase();
+        if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
+            a.classList.add('btn-green');
+        }
+    });
+
+    // 3. Faltu "Premium CSS" text ko hamesha ke liye hide karna
+    modal.querySelectorAll('td, p, span, h2, h3').forEach(function(el) {
+        let text = el.textContent.toLowerCase();
+        if(text.includes('premium css') || text.includes('working 100%')) {
+            let row = el.closest('tr');
+            if(row) row.style.display = 'none';
+            else el.style.display = 'none';
+        }
+    });
+}, 500);
+</script>
+
 </body>
 </html>
