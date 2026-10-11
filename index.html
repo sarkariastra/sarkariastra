@@ -964,5 +964,66 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(err => console.error("Failed to load live updates:", err));
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/api/updates')
+        .then(res => res.json())
+        .then(data => {
+            if(!Array.isArray(data)) return;
+
+            const categories = ['job', 'admit', 'result', 'admission', 'answerkey'];
+
+            categories.forEach(cat => {
+                let items = data.filter(item => item.category === cat);
+                let container = document.getElementById(cat + '-list') || document.querySelector('.' + cat + '-container');
+                
+                if (container) {
+                    renderCategoryList(container, items);
+                } else {
+                    // Agar specific container nahi hai, to console mein log rakho ya default dhoondo
+                    console.log("Container for category not found:", cat);
+                }
+            });
+        })
+        .catch(err => console.error("Error loading updates:", err));
+});
+
+function renderCategoryList(container, items) {
+    container.innerHTML = "";
+    let visibleCount = 10;
+
+    function draw() {
+        let currentItems = items.slice(0, visibleCount);
+        let htmlContent = currentItems.map(item => `
+            <li class="py-2 px-3 border-b border-gray-100 hover:bg-slate-50 transition rounded flex items-center justify-between text-sm">
+                <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
+                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
+                    <span class="truncate">${item.title}</span>
+                </a>
+                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
+            </li>
+        `).join('');
+
+        if (items.length > visibleCount) {
+            htmlContent += `
+                <div class="text-center py-3">
+                    <button onclick="window.loadMore${container.id}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full transition shadow">
+                        View More (${items.length - visibleCount} more)
+                    </button>
+                </div>
+            `;
+        }
+        container.innerHTML = htmlContent;
+    }
+
+    window['loadMore' + container.id] = function() {
+        visibleCount += 20;
+        draw();
+    };
+
+    draw();
+}
+</script>
 </body>
 </html>
