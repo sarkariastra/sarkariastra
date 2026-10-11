@@ -129,7 +129,120 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
         text-align: right !important; 
     }
 }
+
+/* --- NO SCROLL UNIQUE VIP UI --- */
+@media (max-width: 768px) {
+    body, .container, .result-card, #modalContent, .modal-body {
+        padding-left: 0 !important; padding-right: 0 !important;
+        margin-left: 0 !important; margin-right: 0 !important;
+        width: 100% !important; overflow-x: hidden !important;
+    }
+    #modalContent { padding: 8px !important; }
+
+    #modalContent table {
+        width: 100% !important; margin-bottom: 24px !important;
+        border: none !important; box-shadow: none !important; background: transparent !important;
+    }
+
+    /* --- 1 & 2 COLUMN (Classic Card) --- */
+    .table-2col { display: block !important; border-radius: 12px !important; background: #fff !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }
+    .table-2col thead { display: none !important; }
+    .table-2col tbody { display: block !important; width: 100% !important; }
+    .table-2col tr { display: flex !important; justify-content: space-between !important; padding: 14px !important; border-bottom: 1px solid #f1f5f9 !important; align-items: center !important; }
+    .table-2col tr:last-child { border-bottom: none !important; }
+    .table-2col td { border: none !important; padding: 0 !important; }
+    .table-2col td:first-child { color: #64748b !important; font-weight: 600 !important; font-size: 13px !important; width: 45% !important; padding-right: 10px !important; }
+    .table-2col td:last-child { color: #0f172a !important; font-weight: 800 !important; font-size: 15px !important; width: 55% !important; text-align: right !important; }
+    .table-2col td:only-child { width: 100% !important; text-align: left !important; font-size: 14px !important; }
+
+    /* --- 3+ COLUMN STACKED UI (NO SCROLL, APP-LIKE) --- */
+    .table-stacked { display: block !important; }
+    .table-stacked thead { display: none !important; } /* Mobile par standard header chhupayein */
+    .table-stacked tbody { display: block !important; }
+    .table-stacked tr { 
+        display: block !important; background: #ffffff !important; 
+        border: 1px solid #e2e8f0 !important; border-radius: 12px !important; 
+        margin-bottom: 16px !important; padding: 14px 16px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.06) !important;
+        border-top: 4px solid #2563eb !important; /* Top Blue Highlight */
+    }
+    .table-stacked td { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; border-bottom: 1px dashed #e2e8f0 !important; 
+        padding: 10px 0 !important; font-size: 14px !important; color: #0f172a !important; 
+        font-weight: 800 !important; text-align: right !important; word-break: break-word !important;
+    }
+    .table-stacked td:last-child { border-bottom: none !important; }
+    .table-stacked td::before { 
+        content: attr(data-label); /* JS se header yaha aayega */
+        color: #64748b !important; font-size: 11px !important; 
+        font-weight: 700 !important; text-transform: uppercase !important; 
+        text-align: left !important; margin-right: 15px !important;
+        width: 40% !important; flex-shrink: 0 !important;
+    }
+
+    /* --- ACTIVE BUTTON LINKS (Clickable & Redirect) --- */
+    #modalContent a {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+        color: #ffffff !important; padding: 8px 18px !important;
+        border-radius: 8px !important; text-decoration: none !important;
+        font-weight: 700 !important; display: inline-block !important;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3) !important;
+        text-align: center !important; font-size: 13px !important;
+        border: none !important;
+    }
+    #modalContent a:active { transform: scale(0.95) !important; }
+}
 </style>
+<script>
+/* Unique Logic: Links active karega + Stacked Tables ke liye data-label banayega */
+setInterval(function() {
+    // 1. Links ko clickable aur redirectable banana
+    document.querySelectorAll('#modalContent a').forEach(function(link) {
+        if (!link.hasAttribute('target')) {
+            link.setAttribute('target', '_blank'); // Naye tab mein kholega
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
+
+    // 2. Table Auto-Detector
+    var tables = document.querySelectorAll('#modalContent table:not(.styled)');
+    tables.forEach(function(table) {
+        table.classList.add('styled');
+        var trs = table.querySelectorAll('tr');
+        var maxCols = 0;
+        var headers = [];
+        
+        // Headers ko save karein
+        table.querySelectorAll('th').forEach(function(th) {
+            headers.push(th.innerText.trim());
+        });
+
+        trs.forEach(function(tr) {
+            var cols = tr.querySelectorAll('td, th').length;
+            if(cols > maxCols) maxCols = cols;
+        });
+
+        // Agar 2 column hain toh normal Card, 3+ hain to No-Scroll Stacked Card
+        if(maxCols <= 2) {
+            table.classList.add('table-2col');
+        } else {
+            table.classList.add('table-stacked');
+            // Har cell (td) ko uska naam (header) chupke se bata do
+            trs.forEach(function(tr) {
+                var tds = tr.querySelectorAll('td');
+                tds.forEach(function(td, index) {
+                    if(headers[index]) {
+                        td.setAttribute('data-label', headers[index]);
+                    } else {
+                        td.setAttribute('data-label', 'Details');
+                    }
+                });
+            });
+        }
+    });
+}, 500);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="text-slate-800 antialiased relative">
