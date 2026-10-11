@@ -888,5 +888,69 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 1000);
 });
 </script>
+
+<!-- FORCE CLICKABLE LINKS -->
+<style>
+/* Ensure all links inside modal are fully clickable and interactive */
+#modalContent a, .modal-body a {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Har 500ms mein modal ke links ko scan karke clickable banayega
+    setInterval(function() {
+        var modal = document.getElementById('modalContent');
+        if(!modal) return;
+        
+        var links = modal.querySelectorAll('a');
+        links.forEach(function(link) {
+            // Ensure target is blank
+            if(!link.hasAttribute('target')) {
+                link.setAttribute('target', '_blank');
+            }
+            
+            // Force click event listener
+            if(!link.dataset.clickFixed) {
+                link.dataset.clickFixed = "true";
+                link.addEventListener('click', function(e) {
+                    var href = link.getAttribute('href');
+                    if(href && href.startsWith('http')) {
+                        e.stopPropagation();
+                        window.open(href, '_blank');
+                    }
+                });
+            }
+            
+            // Auto button styling based on text
+            var text = link.innerText.toLowerCase();
+            if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
+                link.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                link.style.color = '#ffffff';
+                link.style.display = 'block';
+                link.style.padding = '12px';
+                link.style.borderRadius = '8px';
+                link.style.textAlign = 'center';
+                link.style.fontWeight = '800';
+                link.style.marginTop = '10px';
+                link.style.boxShadow = '0 4px 12px rgba(16,185,129,0.2)';
+            } else if(text.includes('apply') || text.includes('click here') || text.includes('official')) {
+                link.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                link.style.color = '#ffffff';
+                link.style.display = 'block';
+                link.style.padding = '12px';
+                link.style.borderRadius = '8px';
+                link.style.textAlign = 'center';
+                link.style.fontWeight = '800';
+                link.style.marginTop = '10px';
+                link.style.boxShadow = '0 4px 12px rgba(37,99,235,0.2)';
+            }
+        });
+    }, 500);
+});
+</script>
 </body>
 </html>
