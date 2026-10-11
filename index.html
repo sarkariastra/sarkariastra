@@ -775,5 +775,24 @@ setInterval(function() {
 }, 500);
 </script>
 
+<!-- NUKE SCRIPT -->
+<script>
+setInterval(function() {
+    var m = document.getElementById('modalContent');
+    if(!m) return;
+    
+    // Har table row aur paragraph ko check karega
+    m.querySelectorAll('tr, p, h2, h3, span').forEach(function(el) {
+        var txt = el.innerText || el.textContent;
+        if(txt) {
+            txt = txt.toLowerCase();
+            // Agar usme 'premium css' ya 'working' hai, toh turant gayab kar do
+            if(txt.includes('premium css') || txt.includes('working 100')) {
+                el.style.display = 'none';
+            }
+        }
+    });
+}, 300); // Bahut fast check karega (300ms)
+</script>
 </body>
 </html>
