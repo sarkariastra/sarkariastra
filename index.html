@@ -413,7 +413,7 @@
 
             // Fake brief network delay for realism
             setTimeout(() => {
-                let html = '<div class="text-left text-sm md:text-base text-slate-700 overflow-x-auto">' + marked.parse(title) + '</div>';
+                let html = '<div class="text-left text-sm md:text-base text-slate-700 overflow-x-auto">' + marked.parse("\n| Test Heading 1 | Test Heading 2 |\n|---|---|\n| Premium CSS | Working 100% |\n\n" + title) + '</div>';
                 
 
                 html += `
