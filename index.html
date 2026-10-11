@@ -889,67 +889,96 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+
 <!-- FORCE CLICKABLE LINKS -->
 <style>
-/* Ensure all links inside modal are fully clickable and interactive */
 #modalContent a, .modal-body a {
     pointer-events: auto !important;
     cursor: pointer !important;
     position: relative !important;
-    z-index: 9999 !important;
+    z-index: 99999 !important;
 }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Har 500ms mein modal ke links ko scan karke clickable banayega
     setInterval(function() {
         var modal = document.getElementById('modalContent');
         if(!modal) return;
         
+        // Modal ki heading ya title se pata lagana ki kis exam ka modal hai
+        var titleEl = modal.querySelector('h2, h3, .title');
+        var pageTitle = titleEl ? titleEl.innerText.toLowerCase() : "";
+        
+        // Default official links agar AI link na de
+        var defaultPdf = "https://ssc.gov.in";
+        var defaultWeb = "https://ssc.gov.in";
+        
+        if(pageTitle.includes('upsc')) {
+            defaultPdf = "https://upsc.gov.in";
+            defaultWeb = "https://upsc.gov.in";
+        } else if(pageTitle.includes('railway') || pageTitle.includes('rrb')) {
+            defaultPdf = "https://www.rrbcdg.gov.in";
+            defaultWeb = "https://www.rrbcdg.gov.in";
+        } else if(pageTitle.includes('ctet')) {
+            defaultPdf = "https://ctet.nic.in";
+            defaultWeb = "https://ctet.nic.in";
+        }
+
         var links = modal.querySelectorAll('a');
         links.forEach(function(link) {
-            // Ensure target is blank
-            if(!link.hasAttribute('target')) {
-                link.setAttribute('target', '_blank');
-            }
+            var href = link.getAttribute('href');
             
-            // Force click event listener
-            if(!link.dataset.clickFixed) {
-                link.dataset.clickFixed = "true";
+            // Agar href nahi hai ya # / javascript: hai, toh smart link inject karo
+            if(!href || href === '#' || href === '' || href.startsWith('javascript')) {
+                var txt = link.innerText.toLowerCase();
+                if(txt.includes('pdf') || txt.includes('download') || txt.includes('notification')) {
+                    link.setAttribute('href', defaultPdf);
+                } else {
+                    link.setAttribute('href', defaultWeb);
+                }
+            }
+
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+
+            // Force click handler
+            if(!link.dataset.fixedClick) {
+                link.dataset.fixedClick = "true";
                 link.addEventListener('click', function(e) {
-                    var href = link.getAttribute('href');
-                    if(href && href.startsWith('http')) {
-                        e.stopPropagation();
-                        window.open(href, '_blank');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var targetUrl = link.getAttribute('href');
+                    if(targetUrl && targetUrl.startsWith('http')) {
+                        window.open(targetUrl, '_blank');
                     }
-                });
+                }, true);
             }
             
-            // Auto button styling based on text
-            var text = link.innerText.toLowerCase();
-            if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
+            // Styling buttons
+            var txt = link.innerText.toLowerCase();
+            if(txt.includes('download') || txt.includes('pdf') || txt.includes('notification')) {
                 link.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 link.style.color = '#ffffff';
                 link.style.display = 'block';
-                link.style.padding = '12px';
+                link.style.padding = '14px';
                 link.style.borderRadius = '8px';
                 link.style.textAlign = 'center';
                 link.style.fontWeight = '800';
-                link.style.marginTop = '10px';
-                link.style.boxShadow = '0 4px 12px rgba(16,185,129,0.2)';
-            } else if(text.includes('apply') || text.includes('click here') || text.includes('official')) {
+                link.style.marginTop = '12px';
+                link.style.boxShadow = '0 4px 12px rgba(16,185,129,0.3)';
+            } else {
                 link.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
                 link.style.color = '#ffffff';
                 link.style.display = 'block';
-                link.style.padding = '12px';
+                link.style.padding = '14px';
                 link.style.borderRadius = '8px';
                 link.style.textAlign = 'center';
                 link.style.fontWeight = '800';
-                link.style.marginTop = '10px';
-                link.style.boxShadow = '0 4px 12px rgba(37,99,235,0.2)';
+                link.style.marginTop = '12px';
+                link.style.boxShadow = '0 4px 12px rgba(37,99,235,0.3)';
             }
         });
-    }, 500);
+    }, 400);
 });
 </script>
 </body>
