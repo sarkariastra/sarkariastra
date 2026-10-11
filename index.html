@@ -204,59 +204,7 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
 
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const updates = [
-        { category: "result", title: "UPSC Civil Services Prelims Result 2026", query: "UPSC Prelims Result", url: "https://upsc.gov.in" },
-        { category: "result", title: "CBSE Board 10th / 12th Result 2026", query: "CBSE Result", url: "https://cbse.gov.in" },
-        { category: "result", title: "SSC CHSL Tier 1 Result 2026", query: "SSC CHSL Result", url: "https://ssc.gov.in" },
-        { category: "result", title: "Bihar Board Inter / Matric Result 2026", query: "Bihar Board Result", url: "https://biharboardonline.bihar.gov.in" },
-        { category: "result", title: "UP Board Class 10th & 12th Result 2026", query: "UP Board Result", url: "https://upmsp.edu.in" },
-        
-        { category: "admit", title: "Railway Group D Admit Card 2026", query: "Railway Group D Admit Card", url: "https://rrcb.gov.in" },
-        { category: "admit", title: "CTET July Admit Card 2026", query: "CTET Admit Card", url: "https://ctet.nic.in" },
-        { category: "admit", title: "UPSC CSE Prelims Admit Card 2026", query: "UPSC Admit Card", url: "https://upsc.gov.in" },
-        { category: "admit", title: "SSC CGL Tier 1 Admit Card 2026", query: "SSC CGL Admit Card", url: "https://ssc.gov.in" },
-        
-        { category: "job", title: "SSC CGL 2026 Online Form", query: "SSC CGL 2026 Online Form", url: "https://ssc.gov.in" },
-        { category: "job", title: "UPSC Civil Services Examination 2026", query: "UPSC Civil Services Exam", url: "https://upsc.gov.in" },
-        { category: "job", title: "Railway Group D 1 Lakh+ Posts Recruitment 2026", query: "Railway Group D", url: "https://rrcb.gov.in" },
-        { category: "job", title: "IBPS PO / Management Trainee 2026", query: "IBPS PO Notification", url: "https://ibps.in" },
-        
-        { category: "answerkey", title: "UPSC CSE Prelims Answer Key 2026", query: "UPSC Answer Key", url: "https://upsc.gov.in" },
-        { category: "answerkey", title: "SSC CGL Tier 1 Answer Key 2026", query: "SSC CGL Answer Key", url: "https://ssc.gov.in" },
-        { category: "answerkey", title: "CTET Paper 1 & 2 Official Answer Key 2026", query: "CTET Answer Key", url: "https://ctet.nic.in" },
-        
-        { category: "admission", title: "NEET UG Medical Counselling 2026 Registration", query: "NEET UG Counselling", url: "https://mcc.nic.in" },
-        { category: "admission", title: "JEE Advanced Online Admission 2026", query: "JEE Advanced Admission", url: "https://jeeadv.ac.in" },
-        { category: "admission", title: "DU (Delhi University) UG/PG Admission 2026", query: "Delhi University Admission", url: "https://du.ac.in" }
-    ];
 
-    const mapping = {
-        'result': 'list-results',
-        'admit': 'list-admitcard',
-        'job': 'list-jobs',
-        'answerkey': 'list-answerkey',
-        'admission': 'list-admission'
-    };
-
-    Object.keys(mapping).forEach(cat => {
-        let items = updates.filter(item => item.category === cat);
-        let container = document.getElementById(mapping[cat]);
-        if (container) {
-            container.innerHTML = items.map(item => `
-                <li class="py-2.5 px-4 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
-                    <a href="${item.url}" target="_blank" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
-                        <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
-                        <span class="truncate">${item.title}</span>
-                    </a>
-                    <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
-                </li>
-            `).join('');
-        }
-    });
-});
-</script>
 
 <div class="max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 mt-6">
     <div class="bg-white md:rounded-2xl shadow-sm md:shadow-lg border border-slate-200 overflow-hidden flex flex-col">
@@ -283,6 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
+
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const updates = [
@@ -296,6 +246,8 @@ document.addEventListener("DOMContentLoaded", function() {
         { category: "result", title: "JEE Mains Phase 2 Result 2026", url: "https://jeemain.nta.nic.in" },
         { category: "result", title: "Rajasthan PTET Result 2026", url: "https://ptetvmou2026.com" },
         { category: "result", title: "Navy Tradesman Mate Result 2026", url: "https://joinindiannavy.gov.in" },
+        { category: "result", title: "IBPS PO Prelims Result 2026", url: "https://ibps.in" },
+        { category: "result", title: "RRB NTPC CBT 1 Result 2026", url: "https://rrcb.gov.in" },
 
         { category: "admit", title: "Railway Group D Admit Card 2026", url: "https://rrcb.gov.in" },
         { category: "admit", title: "CTET July Admit Card 2026", url: "https://ctet.nic.in" },
@@ -348,16 +300,16 @@ document.addEventListener("DOMContentLoaded", function() {
         let items = updates.filter(item => item.category === cat);
         let container = document.getElementById(mapping[cat]);
         if (container) {
-            renderList(container, items, mapping[cat]);
+            renderWithPagination(container, items, mapping[cat]);
         }
     });
 });
 
-function renderList(container, items, containerId) {
+function renderWithPagination(container, items, containerId) {
     let limit = 10;
     function draw() {
-        let visible = items.slice(0, limit);
-        let html = visible.map(i => `
+        let visibleItems = items.slice(0, limit);
+        let htmlContent = visibleItems.map(i => `
             <li class="py-2.5 px-3 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
                 <a href="${i.url}" target="_blank" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
                     <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
@@ -368,15 +320,15 @@ function renderList(container, items, containerId) {
         `).join('');
 
         if (items.length > limit) {
-            html += `
-                <div class="text-center py-3 bg-slate-50">
-                    <button onclick="window.loadMore_${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full shadow transition">
+            htmlContent += `
+                <div class="text-center py-3 bg-slate-50 mt-2">
+                    <button onclick="window.loadMore_${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full shadow transition cursor-pointer">
                         View More (${items.length - limit} more)
                     </button>
                 </div>
             `;
         }
-        container.innerHTML = html;
+        container.innerHTML = htmlContent;
     }
 
     window['loadMore_' + containerId] = function() {
