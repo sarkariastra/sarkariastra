@@ -890,96 +890,45 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
+
 <!-- FORCE CLICKABLE LINKS -->
 <style>
-#modalContent a, .modal-body a {
-    pointer-events: auto !important;
+#modalContent button, #modalContent a, .modal-content button, .modal-content a {
     cursor: pointer !important;
-    position: relative !important;
-    z-index: 99999 !important;
+    pointer-events: auto !important;
+    z-index: 999999 !important;
 }
 </style>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    setInterval(function() {
-        var modal = document.getElementById('modalContent');
-        if(!modal) return;
+document.addEventListener("click", function(e) {
+    var target = e.target.closest('a, button, div');
+    if(!target) return;
+    
+    var modal = target.closest('#modalContent, .modal, [id*="modal"]');
+    if(modal) {
+        var text = target.innerText ? target.innerText.toLowerCase() : "";
         
-        // Modal ki heading ya title se pata lagana ki kis exam ka modal hai
-        var titleEl = modal.querySelector('h2, h3, .title');
-        var pageTitle = titleEl ? titleEl.innerText.toLowerCase() : "";
-        
-        // Default official links agar AI link na de
-        var defaultPdf = "https://ssc.gov.in";
-        var defaultWeb = "https://ssc.gov.in";
-        
-        if(pageTitle.includes('upsc')) {
-            defaultPdf = "https://upsc.gov.in";
-            defaultWeb = "https://upsc.gov.in";
-        } else if(pageTitle.includes('railway') || pageTitle.includes('rrb')) {
-            defaultPdf = "https://www.rrbcdg.gov.in";
-            defaultWeb = "https://www.rrbcdg.gov.in";
-        } else if(pageTitle.includes('ctet')) {
-            defaultPdf = "https://ctet.nic.in";
-            defaultWeb = "https://ctet.nic.in";
-        }
-
-        var links = modal.querySelectorAll('a');
-        links.forEach(function(link) {
-            var href = link.getAttribute('href');
+        if(text.includes('download') || text.includes('pdf') || text.includes('notification') || text.includes('official') || text.includes('apply')) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Agar href nahi hai ya # / javascript: hai, toh smart link inject karo
-            if(!href || href === '#' || href === '' || href.startsWith('javascript')) {
-                var txt = link.innerText.toLowerCase();
-                if(txt.includes('pdf') || txt.includes('download') || txt.includes('notification')) {
-                    link.setAttribute('href', defaultPdf);
+            var url = target.getAttribute('href');
+            if(!url || url === '#' || url === '') {
+                if(text.includes('upsc')) {
+                    url = 'https://upsc.gov.in';
+                } else if(text.includes('railway') || text.includes('rrb')) {
+                    url = 'https://www.rrbcdg.gov.in';
+                } else if(text.includes('ctet')) {
+                    url = 'https://ctet.nic.in';
                 } else {
-                    link.setAttribute('href', defaultWeb);
+                    url = 'https://ssc.gov.in';
                 }
             }
-
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener noreferrer');
-
-            // Force click handler
-            if(!link.dataset.fixedClick) {
-                link.dataset.fixedClick = "true";
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    var targetUrl = link.getAttribute('href');
-                    if(targetUrl && targetUrl.startsWith('http')) {
-                        window.open(targetUrl, '_blank');
-                    }
-                }, true);
-            }
             
-            // Styling buttons
-            var txt = link.innerText.toLowerCase();
-            if(txt.includes('download') || txt.includes('pdf') || txt.includes('notification')) {
-                link.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                link.style.color = '#ffffff';
-                link.style.display = 'block';
-                link.style.padding = '14px';
-                link.style.borderRadius = '8px';
-                link.style.textAlign = 'center';
-                link.style.fontWeight = '800';
-                link.style.marginTop = '12px';
-                link.style.boxShadow = '0 4px 12px rgba(16,185,129,0.3)';
-            } else {
-                link.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
-                link.style.color = '#ffffff';
-                link.style.display = 'block';
-                link.style.padding = '14px';
-                link.style.borderRadius = '8px';
-                link.style.textAlign = 'center';
-                link.style.fontWeight = '800';
-                link.style.marginTop = '12px';
-                link.style.boxShadow = '0 4px 12px rgba(37,99,235,0.3)';
-            }
-        });
-    }, 400);
-});
+            window.open(url, '_blank');
+        }
+    }
+}, true);
 </script>
 </body>
 </html>
