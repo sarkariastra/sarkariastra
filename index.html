@@ -198,69 +198,98 @@ table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; 
 
 
 
+
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const fallbackData = [
+        { category: "job", title: "SSC CGL 2026 Online Form", query: "SSC CGL 2026 Online Form", url: "https://ssc.gov.in" },
+        { category: "job", title: "UPSC Civil Services Exam 2026", query: "UPSC Civil Services Exam", url: "https://upsc.gov.in" },
+        { category: "job", title: "Railway Group D Recruitment 2026", query: "Railway Group D", url: "https://rrcb.gov.in" },
+        { category: "result", title: "UPSC Civil Services Prelims Result 2026", query: "UPSC Prelims Result", url: "https://upsc.gov.in" },
+        { category: "result", title: "CBSE Board 10th / 12th Result 2026", query: "CBSE Result", url: "https://cbse.gov.in" },
+        { category: "admit", title: "Railway Group D Admit Card 2026", query: "Railway Group D Admit Card", url: "https://rrcb.gov.in" },
+        { category: "admit", title: "CTET July Admit Card 2026", query: "CTET Admit Card", url: "https://ctet.nic.in" },
+        { category: "answerkey", title: "UPSC CSE Prelims Answer Key 2026", query: "UPSC Answer Key", url: "https://upsc.gov.in" },
+        { category: "admission", title: "NEET UG Counselling 2026 Registration", query: "NEET UG Counselling", url: "https://mcc.nic.in" }
+    ];
+
     fetch('https://sarkariastra.shivamkumar911315.workers.dev/api/updates')
-        .then(res => res.json())
-        .then(data => {
-            if(!Array.isArray(data)) return;
-
-            // Map categories to your exact HTML container IDs
-            const mapping = {
-                'result': 'list-results',
-                'admit': 'list-admitcard',
-                'job': 'list-jobs',
-                'answerkey': 'list-answerkey',
-                'admission': 'list-admission'
-            };
-
-            Object.keys(mapping).forEach(cat => {
-                let items = data.filter(item => item.category === cat);
-                let containerId = mapping[cat];
-                let container = document.getElementById(containerId);
-                
-                if (container && items.length > 0) {
-                    renderCategoryList(container, items, containerId);
-                }
-            });
+        .then(res => {
+            if (!res.ok) throw new Error("Network response was not ok");
+            return res.json();
         })
-        .catch(err => console.error("Error loading updates:", err));
+        .then(data => {
+            let updates = Array.isArray(data) && data.length > 0 ? data : fallbackData;
+            populateSections(updates);
+        })
+        .catch(err => {
+            console.warn("Using fallback data due to fetch error:", err);
+            populateSections(fallbackData);
+        });
 });
 
-function renderCategoryList(container, items, containerId) {
-    container.innerHTML = "";
-    let visibleCount = 10;
-
-    function draw() {
-        let currentItems = items.slice(0, visibleCount);
-        let htmlContent = currentItems.map(item => `
-            <li class="py-2.5 px-4 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
-                <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
-                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
-                    <span class="truncate">${item.title}</span>
-                </a>
-                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
-            </li>
-        `).join('');
-
-        if (items.length > visibleCount) {
-            htmlContent += `
-                <div class="text-center py-4 bg-slate-50/50">
-                    <button onclick="window.loadMore${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 rounded-full transition shadow hover:shadow-md cursor-pointer">
-                        View More (${items.length - visibleCount} more)
-                    </button>
-                </div>
-            `;
-        }
-        container.innerHTML = htmlContent;
-    }
-
-    window['loadMore' + containerId] = function() {
-        visibleCount += 20;
-        draw();
+function populateSections(data) {
+    const mapping = {
+        'result': 'list-results',
+        'admit': 'list-admitcard',
+        'job': 'list-jobs',
+        'answerkey': 'list-answerkey',
+        'admission': 'list-admission'
     };
 
-    draw();
+    Object.keys(mapping).forEach(cat => {
+        let items = data.filter(item => item && item.category === cat);
+        if (items.length === 0) {
+            items = data.filter(item => item && item.category === 'job').slice(0, 5); // Fallback items if category empty
+        }
+        let containerId = mapping[cat];
+        let container = document.getElementById(containerId);
+        
+        if (container) {
+            renderCategoryList(container, items, containerId);
+        }
+    });
+}
+
+function renderCategoryList(container, items, containerId) {
+    try {
+        container.innerHTML = "";
+        let visibleCount = 10;
+
+        function draw() {
+            let currentItems = items.slice(0, visibleCount);
+            let htmlContent = currentItems.map(item => `
+                <li class="py-2.5 px-4 border-b border-gray-100 hover:bg-slate-50 transition flex items-center justify-between text-sm">
+                    <a href="#" onclick="safeOpenModal('${item.query || item.title}', '${item.url || '#'}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
+                        <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
+                        <span class="truncate">${item.title}</span>
+                    </a>
+                    <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
+                </li>
+            `).join('');
+
+            if (items.length > visibleCount) {
+                htmlContent += `
+                    <div class="text-center py-4 bg-slate-50/50">
+                        <button onclick="window.loadMore${containerId}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 rounded-full transition shadow hover:shadow-md cursor-pointer">
+                            View More (${items.length - visibleCount} more)
+                        </button>
+                    </div>
+                `;
+            }
+            container.innerHTML = htmlContent;
+        }
+
+        window['loadMore' + containerId] = function() {
+            visibleCount += 20;
+            draw();
+        };
+
+        draw();
+    } catch (e) {
+        console.error("Error rendering category:", e);
+    }
 }
 </script>
 </body>
