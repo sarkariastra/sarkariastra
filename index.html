@@ -50,113 +50,58 @@
 table { width: 100% !important; border-collapse: collapse !important; margin: 15px 0 !important; font-size: 14px !important; text-align: left !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important; } th { background-color: #f1f5f9 !important; color: #1e293b !important; padding: 12px !important; border: 1px solid #cbd5e1 !important; font-weight: bold !important; text-transform: uppercase !important; } td { padding: 12px !important; border: 1px solid #e2e8f0 !important; color: #334155 !important; } tr:nth-child(even) { background-color: #f8fafc !important; } h1, h2, h3 { color: #0f172a !important; font-weight: 800 !important; margin-top: 15px !important; }
 table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
 
-/* --- PREMIUM MOBILE CARD UI --- */
-@media (max-width: 768px) {
-    table {
-        display: block !important;
-        width: 100% !important;
-        background: #ffffff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
-        border: 1px solid #eef0f5 !important;
-        margin-bottom: 20px !important;
-        overflow: hidden !important;
-    }
-    thead { 
-        display: none !important; /* Mobile par Parameter/Details wala header gayab */
-    }
-    tbody { 
-        display: block !important; 
-        width: 100% !important; 
-    }
-    tr {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        border-bottom: 1px solid #f1f5f9 !important;
-        padding: 12px 15px !important;
-        background: transparent !important;
-    }
-    tr:last-child { 
-        border-bottom: none !important; 
-    }
-    td {
-        display: block !important;
-        border: none !important;
-        padding: 0 !important;
-        font-size: 14px !important;
-        background: transparent !important;
-        white-space: normal !important;
-        word-wrap: break-word !important;
-    }
-    td:first-child { 
-        color: #64748b !important; /* Left side grey color */
-        text-align: left !important; 
-        max-width: 55%; 
-    }
-    td:last-child { 
-        color: #0f172a !important; /* Right side dark & bold color */
-        font-weight: 600 !important; 
-        text-align: right !important; 
-        max-width: 45%; 
-    }
-    body, .container, .result-card { 
-        padding-left: 8px !important; 
-        padding-right: 8px !important; 
-    }
-}
 
-/* --- EXACT MATCH CARD UI (OVERRIDING DESKTOP STYLES) --- */
+/* --- SMART MOBILE UI (AUTO-DETECT COLUMNS) --- */
 @media (max-width: 768px) {
     #modalContent table {
         display: block !important;
+        width: 100% !important;
         background: #ffffff !important;
         border-radius: 12px !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
         border: 1px solid #eaeaea !important;
         margin-bottom: 20px !important;
-        overflow: hidden !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
-    #modalContent thead { 
-        display: none !important; 
+
+    /* DEFAULT RULE: For 3+ Columns (Clean Scrollable) */
+    #modalContent thead { display: table-header-group !important; }
+    #modalContent tbody { display: table-row-group !important; }
+    #modalContent tr { display: table-row !important; }
+    #modalContent th { 
+        background: #f8fafc !important; color: #475569 !important; 
+        padding: 14px 12px !important; font-size: 13px !important; 
+        font-weight: 700 !important; border-bottom: 1px solid #eaeaea !important; 
+        white-space: nowrap !important; text-align: left !important;
     }
-    #modalContent tbody {
-        display: block !important;
+    #modalContent td { 
+        display: table-cell !important; padding: 12px !important; 
+        border-bottom: 1px solid #f0f0f0 !important; font-size: 14px !important; 
+        color: #1e293b !important; min-width: 140px !important; /* Text ko dabne se rokna */
     }
-    #modalContent tr, #modalContent tr:nth-child(even), #modalContent tr:nth-of-type(even) {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        border-bottom: 1px solid #f0f0f0 !important;
-        padding: 14px 16px !important;
-        background-color: #ffffff !important; /* Ye alternate grey color ko override karega */
+
+    /* MAGIC RULE: For 2-Column Tables Only (Card UI) */
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) thead { display: none !important; }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tbody { display: block !important; }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tr { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; padding: 14px 16px !important; 
+        border-bottom: 1px solid #f0f0f0 !important; 
     }
-    #modalContent tr:last-child { 
-        border-bottom: none !important; 
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td { 
+        display: block !important; border: none !important; 
+        padding: 0 !important; min-width: 0 !important; white-space: normal !important; 
     }
-    #modalContent td {
-        display: block !important;
-        border: none !important;
-        padding: 0 !important;
-        font-size: 14px !important;
-        line-height: 1.5 !important;
-        background: transparent !important;
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:first-child { 
+        color: #64748b !important; font-weight: 500 !important; 
+        width: 45% !important; padding-right: 10px !important; 
     }
-    #modalContent td:first-child, #modalContent th:first-child { 
-        color: #64748b !important; /* Light grey text */
-        font-weight: 500 !important; /* Normal font */
-        text-align: left !important; 
-        width: 45% !important;
-        padding-right: 10px !important;
-    }
-    #modalContent td:last-child, #modalContent td:nth-child(2) { 
-        color: #0f172a !important; /* Dark text */
-        font-weight: 700 !important; /* Bold font */
-        text-align: right !important; 
-        width: 55% !important;
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:last-child { 
+        color: #0f172a !important; font-weight: 700 !important; 
+        width: 55% !important; text-align: right !important; 
     }
 }
-
 </style>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
