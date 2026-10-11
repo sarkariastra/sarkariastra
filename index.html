@@ -662,14 +662,14 @@ footer a {
                     `;
                 }
                 
-                html += `<div class="flex flex-col gap-2">`;
+                                html += `<div class="flex flex-col gap-2">`;
                 if (isNonJob) {
-                     html += `<button class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> Download Official PDF</button>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base flex items-center justify-center gap-2 no-underline text-center"><i class="fa-solid fa-download"></i> Download Official PDF</a>`;
                 } else {
-                     html += `<button class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base">Apply Online (Click Here)</button>`;
-                     html += `<button class="grad-green text-white font-bold py-2 rounded-xl w-full text-sm">Download Notification</button>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base text-center block no-underline">Apply Online (Click Here)</a>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-green text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Download Notification</a>`;
                 }
-                html += `<button class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm">Official Website</button></div>`;
+                html += `<a href="https://ssc.gov.in" target="_blank" class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Official Website</a></div>`;
 
                 content.innerHTML = html;
                 
