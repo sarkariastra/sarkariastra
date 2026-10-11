@@ -336,13 +336,14 @@
                 items = items.filter(item => item && item.title).slice(0, 4);
                 
                 container.innerHTML = '';
-                items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col gap-2";
-                    card.onclick = () => openModal(item.type, item.title);
-                    card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md w-max bg-indigo-100 text-indigo-700">${item.type}</span><h3 class="font-bold text-slate-800">${item.title}</h3>`;
-                    container.appendChild(card);
-                });
+            items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer text-left";
+            card.onclick = () => openModal(item.type, item.title);
+            card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 mb-2 inline-block">${item.type}</span><div class="mt-2 text-sm text-slate-700 leading-relaxed">${marked.parse(item.title)}</div>`;
+            container.appendChild(card);
+        });
+                
             } catch (error) {
                 // Offline Fallback
                 const allItems = [...initialData.jobs.map(t=>({title:t, type:'Job'})), ...initialData.results.map(t=>({title:t, type:'Result'})), ...initialData.syllabus.map(t=>({title:t, type:'Syllabus'}))];
@@ -453,7 +454,9 @@
                 }
                 html += `<button class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm">Official Website</button></div>`;
 
-                content.innerHTML = marked.parse(html);
+                content.innerHTML = html;
+                
+                
             }, 300);
         }
 
