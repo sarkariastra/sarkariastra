@@ -666,6 +666,9 @@ setInterval(function() {
         window.onload = initPage;
     </script>
 
+
+
+
 <!-- PREMIUM VIP UI & LINK FIXER -->
 <style>
 @media (max-width: 768px) {
@@ -711,6 +714,7 @@ setInterval(function() {
         text-align: right !important; 
     }
 
+    /* Fixed Button UI (100% working, solid clickable) */
     #modalContent a { 
         display: block !important; width: 100% !important; 
         background: linear-gradient(135deg, #3b82f6, #2563eb) !important; 
@@ -720,6 +724,9 @@ setInterval(function() {
         text-decoration: none !important; margin-top: 12px !important;
         box-shadow: 0 4px 12px rgba(37,99,235,0.2) !important;
         box-sizing: border-box !important; border: none !important;
+        cursor: pointer !important;
+        position: relative !important;
+        z-index: 10 !important; /* Ensure button is on top to click */
     }
     
     #modalContent a.btn-green { 
@@ -733,27 +740,36 @@ setInterval(function() {
     var modal = document.getElementById('modalContent');
     if(!modal) return;
     
-    // 1. Markdown link ko real Button banana
-    if(modal.innerHTML.includes('[') && modal.innerHTML.includes('](')) {
-        modal.innerHTML = modal.innerHTML.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
-    }
-
-    // 2. Buttons ko Green / Blue set karna
-    modal.querySelectorAll('a').forEach(function(a) {
-        if(!a.hasAttribute('target')) a.setAttribute('target', '_blank');
-        var text = a.innerText.toLowerCase();
-        if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
-            a.classList.add('btn-green');
+    // 1. STRONG Text Remover for AI garbage words ("Premium CSS", "Working 100%")
+    // Yeh pure modal body ki saari text elements ko check karke turant delete kar dega
+    modal.querySelectorAll('*').forEach(function(el) {
+        // Agar us element ke andar sirf text hai (bina link/image ke)
+        if(el.children.length === 0 && el.textContent) {
+           let text = el.textContent.toLowerCase().trim();
+           if(text === 'premium css' || text === 'working 100%' || text === 'premium css working 100%') {
+               el.style.display = 'none';
+               // Upar wala table row check karke usko bhi hide
+               let parentRow = el.closest('tr');
+               if(parentRow) parentRow.style.display = 'none';
+           }
         }
     });
 
-    // 3. Faltu "Premium CSS" text ko hamesha ke liye hide karna
-    modal.querySelectorAll('td, p, span, h2, h3').forEach(function(el) {
-        let text = el.textContent.toLowerCase();
-        if(text.includes('premium css') || text.includes('working 100%')) {
-            let row = el.closest('tr');
-            if(row) row.style.display = 'none';
-            else el.style.display = 'none';
+    // 2. TRUE LINK FIXER (Jo sahi se target url extract karke A-tag me set kare)
+    // AI kabhi aise return kar skta hai: [Apply Online](https://example.com)
+    const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
+    if(modal.innerHTML.match(regex)) {
+        modal.innerHTML = modal.innerHTML.replace(regex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
+    // 3. Make them beautiful & clicky!
+    modal.querySelectorAll('a').forEach(function(a) {
+        // Double check target
+        if(!a.hasAttribute('target')) a.setAttribute('target', '_blank');
+        
+        var text = a.innerText.toLowerCase();
+        if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
+            a.classList.add('btn-green');
         }
     });
 }, 500);
