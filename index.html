@@ -6,7 +6,7 @@
     <title>SarkariAstra - India's #1 Job & Education Portal</title>
     <meta name="description" content="SarkariAstra: Get the latest Government Jobs, Results, Admit Cards, and Syllabi fast and accurately.">
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -46,7 +46,224 @@
         /* Logo Bounce */
         .logo-bounce:hover svg { animation: bounce 1s ease infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-    </style>
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.875rem; text-align: left; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border: 1px solid #e2e8f0; } thead { background-color: #f8fafc; border-bottom: 2px solid #cbd5e1; } th { padding: 0.75rem 1rem; font-weight: 700; color: #334155; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; } td { padding: 0.875rem 1rem; border-bottom: 1px solid #e2e8f0; color: #475569; vertical-align: top; } tr:last-child td { border-bottom: none; } tr:hover { background-color: #f1f5f9; transition: all 0.2s ease; } h1, h2, h3 { color: #0f172a; font-weight: 800; margin-top: 1.5rem; margin-bottom: 0.75rem; line-height: 1.3; } ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: #475569; } ul li { margin-bottom: 0.25rem; } strong { color: #1e293b; font-weight: 700; } a { color: #4f46e5; font-weight: 600; text-decoration: none; }
+table { width: 100% !important; border-collapse: collapse !important; margin: 15px 0 !important; font-size: 14px !important; text-align: left !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important; } th { background-color: #f1f5f9 !important; color: #1e293b !important; padding: 12px !important; border: 1px solid #cbd5e1 !important; font-weight: bold !important; text-transform: uppercase !important; } td { padding: 12px !important; border: 1px solid #e2e8f0 !important; color: #334155 !important; } tr:nth-child(even) { background-color: #f8fafc !important; } h1, h2, h3 { color: #0f172a !important; font-weight: 800 !important; margin-top: 15px !important; }
+table { display: block; max-width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+
+
+
+
+/* --- FINAL SMART MOBILE UI (PRO BEAUTY, SCROLL, FULL WIDTH) --- */
+@media (max-width: 768px) {
+    /* 1. Remove all extra spacing outside and inside the main container */
+    body, .container, .result-card, #modalContent, .modal-body {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    #modalContent {
+        padding: 5px !important;
+    }
+
+    #modalContent table {
+        display: block !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
+        border: 1px solid #e2e8f0 !important;
+        margin-bottom: 24px !important;
+        overflow-x: auto !important; /* Extremely important for 3+ columns */
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* 2. FOR 3+ COLUMNS (Responsive Scrollable Table) */
+    #modalContent thead { display: table-header-group !important; }
+    #modalContent tbody { display: table-row-group !important; }
+    #modalContent tr { display: table-row !important; }
+    
+    #modalContent th { 
+        background: #f1f5f9 !important; color: #475569 !important; 
+        padding: 12px 10px !important; font-size: 11px !important; 
+        font-weight: 800 !important; text-transform: uppercase !important; 
+        border-bottom: 2px solid #cbd5e1 !important; 
+        white-space: nowrap !important; text-align: left !important;
+    }
+    
+    #modalContent td { 
+        display: table-cell !important; padding: 12px 10px !important; 
+        border-bottom: 1px solid #e2e8f0 !important; 
+        font-size: 13px !important; line-height: 1.5 !important;
+        color: #0f172a !important; font-weight: 500 !important; 
+        min-width: 130px !important; /* Prevents text from being crushed */
+    }
+
+    /* 3. FOR 2-COLUMN (Card/List style - Target style) */
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) thead { display: none !important; }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tbody { display: block !important; }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tr { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; padding: 12px 10px !important; 
+        border-bottom: 1px solid #f1f5f9 !important; 
+    }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) tr:last-child {
+        border-bottom: none !important;
+    }
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td { 
+        display: block !important; border: none !important; padding: 0 !important; 
+        min-width: 0 !important; white-space: normal !important; 
+    }
+    
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:first-child { 
+        color: #64748b !important; font-size: 12px !important;
+        font-weight: 600 !important; width: 45% !important; 
+        padding-right: 8px !important; 
+    }
+    
+    #modalContent table:not(:has(th:nth-child(3), td:nth-child(3))) td:last-child { 
+        color: #1e293b !important; font-size: 14px !important;
+        font-weight: 800 !important; width: 55% !important; 
+        text-align: right !important; 
+    }
+}
+
+/* --- NO SCROLL UNIQUE VIP UI --- */
+@media (max-width: 768px) {
+    body, .container, .result-card, #modalContent, .modal-body {
+        padding-left: 0 !important; padding-right: 0 !important;
+        margin-left: 0 !important; margin-right: 0 !important;
+        width: 100% !important; overflow-x: hidden !important;
+    }
+    #modalContent { padding: 8px !important; }
+
+    #modalContent table {
+        width: 100% !important; margin-bottom: 24px !important;
+        border: none !important; box-shadow: none !important; background: transparent !important;
+    }
+
+    /* --- 1 & 2 COLUMN (Classic Card) --- */
+    .table-2col { display: block !important; border-radius: 12px !important; background: #fff !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }
+    .table-2col thead { display: none !important; }
+    .table-2col tbody { display: block !important; width: 100% !important; }
+    .table-2col tr { display: flex !important; justify-content: space-between !important; padding: 14px !important; border-bottom: 1px solid #f1f5f9 !important; align-items: center !important; }
+    .table-2col tr:last-child { border-bottom: none !important; }
+    .table-2col td { border: none !important; padding: 0 !important; }
+    .table-2col td:first-child { color: #64748b !important; font-weight: 600 !important; font-size: 13px !important; width: 45% !important; padding-right: 10px !important; }
+    .table-2col td:last-child { color: #0f172a !important; font-weight: 800 !important; font-size: 15px !important; width: 55% !important; text-align: right !important; }
+    .table-2col td:only-child { width: 100% !important; text-align: left !important; font-size: 14px !important; }
+
+    /* --- 3+ COLUMN STACKED UI (NO SCROLL, APP-LIKE) --- */
+    .table-stacked { display: block !important; }
+    .table-stacked thead { display: none !important; } /* Mobile par standard header chhupayein */
+    .table-stacked tbody { display: block !important; }
+    .table-stacked tr { 
+        display: block !important; background: #ffffff !important; 
+        border: 1px solid #e2e8f0 !important; border-radius: 12px !important; 
+        margin-bottom: 16px !important; padding: 14px 16px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.06) !important;
+        border-top: 4px solid #2563eb !important; /* Top Blue Highlight */
+    }
+    .table-stacked td { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; border-bottom: 1px dashed #e2e8f0 !important; 
+        padding: 10px 0 !important; font-size: 14px !important; color: #0f172a !important; 
+        font-weight: 800 !important; text-align: right !important; word-break: break-word !important;
+    }
+    .table-stacked td:last-child { border-bottom: none !important; }
+    .table-stacked td::before { 
+        content: attr(data-label); /* JS se header yaha aayega */
+        color: #64748b !important; font-size: 11px !important; 
+        font-weight: 700 !important; text-transform: uppercase !important; 
+        text-align: left !important; margin-right: 15px !important;
+        width: 40% !important; flex-shrink: 0 !important;
+    }
+
+    /* --- ACTIVE BUTTON LINKS (Clickable & Redirect) --- */
+    #modalContent a {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+        color: #ffffff !important; padding: 8px 18px !important;
+        border-radius: 8px !important; text-decoration: none !important;
+        font-weight: 700 !important; display: inline-block !important;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.3) !important;
+        text-align: center !important; font-size: 13px !important;
+        border: none !important;
+    }
+    #modalContent a:active { transform: scale(0.95) !important; }
+}
+</style>
+<script>
+/* Unique Logic: Links active karega + Stacked Tables ke liye data-label banayega */
+setInterval(function() {
+    // 1. Links ko clickable aur redirectable banana
+    document.querySelectorAll('#modalContent a').forEach(function(link) {
+        if (!link.hasAttribute('target')) {
+            link.setAttribute('target', '_blank'); // Naye tab mein kholega
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
+
+    // 2. Table Auto-Detector
+    var tables = document.querySelectorAll('#modalContent table:not(.styled)');
+    tables.forEach(function(table) {
+        table.classList.add('styled');
+        var trs = table.querySelectorAll('tr');
+        var maxCols = 0;
+        var headers = [];
+        
+        // Headers ko save karein
+        table.querySelectorAll('th').forEach(function(th) {
+            headers.push(th.innerText.trim());
+        });
+
+        trs.forEach(function(tr) {
+            var cols = tr.querySelectorAll('td, th').length;
+            if(cols > maxCols) maxCols = cols;
+        });
+
+        // Agar 2 column hain toh normal Card, 3+ hain to No-Scroll Stacked Card
+        if(maxCols <= 2) {
+            table.classList.add('table-2col');
+        } else {
+            table.classList.add('table-stacked');
+            // Har cell (td) ko uska naam (header) chupke se bata do
+            trs.forEach(function(tr) {
+                var tds = tr.querySelectorAll('td');
+                tds.forEach(function(td, index) {
+                    if(headers[index]) {
+                        td.setAttribute('data-label', headers[index]);
+                    } else {
+                        td.setAttribute('data-label', 'Details');
+                    }
+                });
+            });
+        }
+    });
+}, 500);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+/* Make hero title bright white with shadow for clear readability */
+.hero-title, h1, .text-center h1 {
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
+}
+</style>
+
+
+<style>
+/* Make footer text bright white / light grey for crystal clear visibility */
+footer, footer p, footer span, .footer-text, footer div {
+    color: #e2e8f0 !important;
+}
+footer a {
+    color: #93c5fd !important;
+}
+</style>
+
 </head>
 <body class="text-slate-800 antialiased relative">
 
@@ -252,7 +469,11 @@
 
     <script>
         // API KEY FOR HOSTING (Put your Gemini API Key here)
+<<<<<<< HEAD
         const API_KEY = ""; 
+=======
+        const WORKER_URL = "https://sarkariastra.shivamkumar911315.workers.dev"; 
+>>>>>>> 704eeefbb4f7ece86e5864288da7fb82350c634a
 
         // Static fallback lists
         const initialData = {
@@ -311,6 +532,7 @@
             container.innerHTML = `<div class="col-span-1 md:col-span-2 text-center py-6 text-indigo-600 font-semibold animate-pulse">Scanning live data for "${keyword}"...</div>`;
 
             try {
+<<<<<<< HEAD
                 const workerUrl = "https://sarkariastra.shivamkumar911315.workers.dev";
             const response = await fetch(`${workerUrl}/?q=${encodeURIComponent(keyword)}`);
             if (!response.ok) throw new Error("Worker search failed: " + response.status);
@@ -323,15 +545,40 @@
                 title: answer,
                 type: "Search Results"
             }];
+=======
+                const response = await fetch(`${WORKER_URL}?q=${encodeURIComponent(keyword)}`);
+                if (!response.ok) throw new Error("Worker request failed: " + response.status);
+
+                const data = await response.json();
+                const answer = data.result?.answer;
+                if (!answer) throw new Error(data.error || "Worker returned no answer");
+
+                let items;
+                try {
+                    const cleaned = answer.replace(/^```(?:json)?\\s*/i, "").replace(/\\s*```$/, "");
+                    const match = cleaned.match(/\\[[\\s\\S]*\\]/);
+                    items = JSON.parse(match ? match[0] : cleaned);
+                } catch {
+                    items = answer.split("\\n")
+                        .map(line => line.replace(/^\\s*[-*\\d.)]+\\s*/, "").trim())
+                        .filter(Boolean)
+                        .slice(0, 4)
+                        .map(title => ({ title, type: "Result" }));
+                }
+
+                if (!Array.isArray(items)) throw new Error("Invalid search response");
+                items = items.filter(item => item && item.title).slice(0, 4);
+>>>>>>> 704eeefbb4f7ece86e5864288da7fb82350c634a
                 
                 container.innerHTML = '';
-                items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col gap-2";
-                    card.onclick = () => openModal(item.type, item.title);
-                    card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md w-max bg-indigo-100 text-indigo-700">${item.type}</span><h3 class="font-bold text-slate-800">${item.title}</h3>`;
-                    container.appendChild(card);
-                });
+            items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-4 rounded-xl border border-indigo-100 shadow-sm hover:shadow-md transition cursor-pointer text-left";
+            card.onclick = () => openModal(item.type, item.title);
+            card.innerHTML = `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 mb-2 inline-block">${item.type}</span><div class="mt-2 text-sm text-slate-700 leading-relaxed">${marked.parse(item.title)}</div>`;
+            container.appendChild(card);
+        });
+                
             } catch (error) {
                 // Offline Fallback
                 const allItems = [...initialData.jobs.map(t=>({title:t, type:'Job'})), ...initialData.results.map(t=>({title:t, type:'Result'})), ...initialData.syllabus.map(t=>({title:t, type:'Syllabus'}))];
@@ -399,7 +646,8 @@
 
             // Fake brief network delay for realism
             setTimeout(() => {
-                let html = `<h2 class="text-lg md:text-2xl font-black text-slate-900 text-center mb-6 leading-tight">${title}</h2>`;
+                let html = '<div class="text-left text-sm md:text-base text-slate-700 overflow-x-auto">' + marked.parse(title) + '</div>';
+                
 
                 html += `
                     <div class="border border-indigo-100 rounded-xl overflow-hidden mb-4">
@@ -433,16 +681,18 @@
                     `;
                 }
                 
-                html += `<div class="flex flex-col gap-2">`;
+                                html += `<div class="flex flex-col gap-2">`;
                 if (isNonJob) {
-                     html += `<button class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> Download Official PDF</button>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base flex items-center justify-center gap-2 no-underline text-center"><i class="fa-solid fa-download"></i> Download Official PDF</a>`;
                 } else {
-                     html += `<button class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base">Apply Online (Click Here)</button>`;
-                     html += `<button class="grad-green text-white font-bold py-2 rounded-xl w-full text-sm">Download Notification</button>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-primary text-white font-bold py-3 rounded-xl w-full text-base text-center block no-underline">Apply Online (Click Here)</a>`;
+                     html += `<a href="https://ssc.gov.in" target="_blank" class="grad-green text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Download Notification</a>`;
                 }
-                html += `<button class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm">Official Website</button></div>`;
+                html += `<a href="https://ssc.gov.in" target="_blank" class="bg-slate-800 text-white font-bold py-2 rounded-xl w-full text-sm text-center block no-underline">Official Website</a></div>`;
 
                 content.innerHTML = html;
+                
+                
             }, 300);
         }
 
@@ -454,5 +704,345 @@
 
         window.onload = initPage;
     </script>
+
+
+
+
+<!-- PREMIUM VIP UI & LINK FIXER -->
+<style>
+@media (max-width: 768px) {
+    #modalContent { 
+        background: #f4f7fa !important; padding: 12px !important; 
+        font-family: 'Inter', system-ui, sans-serif !important; 
+    }
+    
+    #modalContent h2, #modalContent h3 { 
+        color: #3730a3 !important; background: #eef2ff !important; 
+        padding: 12px 14px !important; font-size: 13px !important; 
+        font-weight: 800 !important; text-transform: uppercase !important; 
+        border-radius: 10px 10px 0 0 !important; margin: 20px 0 0 0 !important;
+        border: 1px solid #e0e7ff !important; border-bottom: none !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    #modalContent table { 
+        width: 100% !important; background: #ffffff !important; 
+        border-radius: 0 0 10px 10px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important; 
+        border: 1px solid #e5e7eb !important; border-top: 1px solid #e0e7ff !important; 
+        margin-bottom: 20px !important; border-spacing: 0 !important;
+    }
+    
+    #modalContent thead { display: none !important; }
+    #modalContent tbody { display: block !important; width: 100% !important; }
+    
+    #modalContent tr { 
+        display: flex !important; justify-content: space-between !important; 
+        align-items: center !important; padding: 14px !important; 
+        border-bottom: 1px solid #f3f4f6 !important; 
+    }
+    #modalContent tr:last-child { border-bottom: none !important; }
+    
+    #modalContent td:first-child { 
+        color: #6b7280 !important; font-size: 13px !important; 
+        font-weight: 600 !important; width: 45% !important; 
+    }
+    
+    #modalContent td:last-child { 
+        color: #111827 !important; font-size: 14px !important; 
+        font-weight: 800 !important; width: 55% !important; 
+        text-align: right !important; 
+    }
+
+    /* Fixed Button UI (100% working, solid clickable) */
+    #modalContent a { 
+        display: block !important; width: 100% !important; 
+        background: linear-gradient(135deg, #3b82f6, #2563eb) !important; 
+        color: #ffffff !important; padding: 14px !important; 
+        border-radius: 8px !important; text-align: center !important; 
+        font-weight: 800 !important; font-size: 15px !important; 
+        text-decoration: none !important; margin-top: 12px !important;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.2) !important;
+        box-sizing: border-box !important; border: none !important;
+        cursor: pointer !important;
+        position: relative !important;
+        z-index: 10 !important; /* Ensure button is on top to click */
+    }
+    
+    #modalContent a.btn-green { 
+        background: linear-gradient(135deg, #10b981, #059669) !important; 
+        box-shadow: 0 4px 12px rgba(16,185,129,0.2) !important;
+    }
+}
+</style>
+<script>
+setInterval(function() {
+    var modal = document.getElementById('modalContent');
+    if(!modal) return;
+    
+    // 1. STRONG Text Remover for AI garbage words ("Premium CSS", "Working 100%")
+    // Yeh pure modal body ki saari text elements ko check karke turant delete kar dega
+    modal.querySelectorAll('*').forEach(function(el) {
+        // Agar us element ke andar sirf text hai (bina link/image ke)
+        if(el.children.length === 0 && el.textContent) {
+           let text = el.textContent.toLowerCase().trim();
+           if(text === 'premium css' || text === 'working 100%' || text === 'premium css working 100%') {
+               el.style.display = 'none';
+               // Upar wala table row check karke usko bhi hide
+               let parentRow = el.closest('tr');
+               if(parentRow) parentRow.style.display = 'none';
+           }
+        }
+    });
+
+    // 2. TRUE LINK FIXER (Jo sahi se target url extract karke A-tag me set kare)
+    // AI kabhi aise return kar skta hai: [Apply Online](https://example.com)
+    const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
+    if(modal.innerHTML.match(regex)) {
+        modal.innerHTML = modal.innerHTML.replace(regex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
+    // 3. Make them beautiful & clicky!
+    modal.querySelectorAll('a').forEach(function(a) {
+        // Double check target
+        if(!a.hasAttribute('target')) a.setAttribute('target', '_blank');
+        
+        var text = a.innerText.toLowerCase();
+        if(text.includes('download') || text.includes('notification') || text.includes('pdf')) {
+            a.classList.add('btn-green');
+        }
+    });
+}, 500);
+</script>
+
+<!-- NUKE SCRIPT -->
+<script>
+setInterval(function() {
+    var m = document.getElementById('modalContent');
+    if(!m) return;
+    
+    // Har table row aur paragraph ko check karega
+    m.querySelectorAll('tr, p, h2, h3, span').forEach(function(el) {
+        var txt = el.innerText || el.textContent;
+        if(txt) {
+            txt = txt.toLowerCase();
+            // Agar usme 'premium css' ya 'working' hai, toh turant gayab kar do
+            if(txt.includes('premium css') || txt.includes('working 100')) {
+                el.style.display = 'none';
+            }
+        }
+    });
+}, 300); // Bahut fast check karega (300ms)
+</script>
+
+
+
+<!-- DYNAMIC ROTATING BOXES -->
+<style>
+@keyframes boxAnim {
+    0% { opacity: 0.3; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.rot-box-active {
+    animation: boxAnim 0.4s ease-in-out forwards;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const updatesPool = [
+        { title: "SSC CGL 2026 Apply", query: "SSC CGL 2026 Online Form" },
+        { title: "UPSC CSE Result", query: "UPSC Civil Services Exam Result" },
+        { title: "Railway Group D Card", query: "RRB Group D Admit Card" },
+        { title: "CTET Answer Key", query: "CTET Answer Key Notice" },
+        { title: "IBPS PO Notification", query: "IBPS PO Recruitment" },
+        { title: "NEET UG Counselling", query: "NEET UG Counselling Schedule" },
+        { title: "UP Police Constable", query: "UP Police Constable Result" },
+        { title: "Bihar Board 12th Admit", query: "Bihar Board Inter Admit Card" },
+        { title: "SSC CHSL Tier 1", query: "SSC CHSL Tier 1 Exam" },
+        { title: "RRB NTPC Form", query: "RRB NTPC Recruitment Online Form" }
+    ];
+
+    // Home page ke pehle 4 action cards ko saaf taur par target karna
+    setTimeout(function() {
+        const gridContainers = document.querySelectorAll('.grid.grid-cols-2');
+        let targetBoxes = [];
+        
+        gridContainers.forEach(grid => {
+            let items = grid.querySelectorAll('a, button, div.rounded-xl');
+            items.forEach(item => {
+                if(targetBoxes.length < 4 && !targetBoxes.includes(item)) {
+                    targetBoxes.push(item);
+                }
+            });
+        });
+
+        if(targetBoxes.length >= 4) {
+            setInterval(function() {
+                let shuffled = [...updatesPool].sort(() => 0.5 - Math.random());
+                
+                for(let i = 0; i < 4; i++) {
+                    let box = targetBoxes[i];
+                    let data = shuffled[i];
+                    if(!box) continue;
+
+                    let label = box.querySelector('span, p, div:last-child') || box;
+
+                    box.classList.add('rot-box-active');
+                    
+                    setTimeout(function() {
+                        label.innerText = data.title;
+                        box.onclick = function(e) {
+                            e.preventDefault();
+                            if(typeof openSearchModal === 'function') {
+                                openSearchModal(data.query);
+                            }
+                        };
+                    }, 200);
+
+                    setTimeout(function() {
+                        box.classList.remove('rot-box-active');
+                    }, 400);
+                }
+            }, 6000); // Har 6 seconds mein sabhi 4 boxes rotate honge
+        }
+    }, 1000);
+});
+</script>
+
+
+
+<!-- FORCE CLICKABLE LINKS -->
+<style>
+#modalContent button, #modalContent a, .modal-content button, .modal-content a {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    z-index: 999999 !important;
+}
+</style>
+<script>
+document.addEventListener("click", function(e) {
+    var target = e.target.closest('a, button, div');
+    if(!target) return;
+    
+    var modal = target.closest('#modalContent, .modal, [id*="modal"]');
+    if(modal) {
+        var text = target.innerText ? target.innerText.toLowerCase() : "";
+        
+        if(text.includes('download') || text.includes('pdf') || text.includes('notification') || text.includes('official') || text.includes('apply')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var url = target.getAttribute('href');
+            if(!url || url === '#' || url === '') {
+                if(text.includes('upsc')) {
+                    url = 'https://upsc.gov.in';
+                } else if(text.includes('railway') || text.includes('rrb')) {
+                    url = 'https://www.rrbcdg.gov.in';
+                } else if(text.includes('ctet')) {
+                    url = 'https://ctet.nic.in';
+                } else {
+                    url = 'https://ssc.gov.in';
+                }
+            }
+            
+            window.open(url, '_blank');
+        }
+    }
+}, true);
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/api/updates')
+        .then(res => res.json())
+        .then(data => {
+            if(!Array.isArray(data)) return;
+            
+            // Categories ke hisaab se filter karein
+            let jobs = data.filter(item => item.category === 'job');
+            let admits = data.filter(item => item.category === 'admit');
+            let results = data.filter(item => item.category === 'result' || item.category === 'admission');
+            
+            // Helper function to render items into lists if containers exist
+            function populateList(selector, items) {
+                const container = document.querySelector(selector);
+                if(container && items.length > 0) {
+                    container.innerHTML = items.map(item => `
+                        <li class="py-2 px-3 hover:bg-slate-50 transition rounded-lg">
+                            <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-semibold text-sm flex items-center">
+                                <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2"></i> ${item.title}
+                                <span class="ml-auto text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold">New</span>
+                            </a>
+                        /li>
+                    `).join('');
+                }
+            }
+            
+            // Agar aapke HTML mein specific selectors hain toh yahan map ho jayenge
+            console.log("Live Sarkari Updates Loaded Successfully:", data.length);
+        })
+        .catch(err => console.error("Failed to load live updates:", err));
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/api/updates')
+        .then(res => res.json())
+        .then(data => {
+            if(!Array.isArray(data)) return;
+
+            const categories = ['job', 'admit', 'result', 'admission', 'answerkey'];
+
+            categories.forEach(cat => {
+                let items = data.filter(item => item.category === cat);
+                let container = document.getElementById(cat + '-list') || document.querySelector('.' + cat + '-container');
+                
+                if (container) {
+                    renderCategoryList(container, items);
+                } else {
+                    // Agar specific container nahi hai, to console mein log rakho ya default dhoondo
+                    console.log("Container for category not found:", cat);
+                }
+            });
+        })
+        .catch(err => console.error("Error loading updates:", err));
+});
+
+function renderCategoryList(container, items) {
+    container.innerHTML = "";
+    let visibleCount = 10;
+
+    function draw() {
+        let currentItems = items.slice(0, visibleCount);
+        let htmlContent = currentItems.map(item => `
+            <li class="py-2 px-3 border-b border-gray-100 hover:bg-slate-50 transition rounded flex items-center justify-between text-sm">
+                <a href="#" onclick="openSearchModal('${item.query || item.title}'); return false;" class="text-slate-800 hover:text-blue-600 font-medium flex items-center truncate mr-2">
+                    <i class="fa-solid fa-angles-right text-xs text-blue-600 mr-2 flex-shrink-0"></i> 
+                    <span class="truncate">${item.title}</span>
+                </a>
+                <span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold flex-shrink-0">New</span>
+            </li>
+        `).join('');
+
+        if (items.length > visibleCount) {
+            htmlContent += `
+                <div class="text-center py-3">
+                    <button onclick="window.loadMore${container.id}()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-full transition shadow">
+                        View More (${items.length - visibleCount} more)
+                    </button>
+                </div>
+            `;
+        }
+        container.innerHTML = htmlContent;
+    }
+
+    window['loadMore' + container.id] = function() {
+        visibleCount += 20;
+        draw();
+    };
+
+    draw();
+}
+</script>
 </body>
 </html>
